@@ -359,6 +359,11 @@ h2 {
   gap: 14px;
 }
 
+.menu-grid.is-single {
+  grid-template-columns: minmax(280px, 560px);
+  justify-content: center;
+}
+
 .menu-card {
   position: relative;
   display: grid;
@@ -791,7 +796,22 @@ h2 {
 .booking-history {
   display: grid;
   gap: 8px;
+  margin-top: 8px;
+}
+
+.booking-history-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
   margin-top: 16px;
+  font-weight: 900;
+}
+
+.booking-history-head small {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 800;
 }
 
 .booking-history-card {
@@ -817,6 +837,13 @@ h2 {
   margin: 16px 0 0;
   color: var(--muted);
   font-size: 0.78rem;
+}
+
+.admin-note {
+  margin: -2px 0 2px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .slot-editor {

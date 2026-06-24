@@ -30,18 +30,8 @@ const defaultPaymentConfig = {
 };
 
 const menus = {
-  body: {
-    name: "全身マッサージ",
-    duration: "30分",
-    price: "1,500円",
-  },
-  head: {
-    name: "ヘッドスパ",
-    duration: "30分",
-    price: "1,500円",
-  },
-  foot: {
-    name: "足スパ",
+  omakase: {
+    name: "お任せコース",
     duration: "30分",
     price: "1,500円",
   },
@@ -69,7 +59,7 @@ let viewYear = 2026;
 let viewMonth = 5;
 let selectedDate = "";
 let selectedSlot = "";
-let selectedMenuId = "body";
+let selectedMenuId = "omakase";
 let bookings = loadBookings();
 let paymentConfig = { ...defaultPaymentConfig };
 let isDirty = false;
@@ -208,7 +198,7 @@ const updateMailLink = () => {
     `希望日時：${dateLabel} ${slotLabel}`,
     `コース：${menu.name} ${menu.duration} ${menu.price}`,
     "来店回数：初回 / 2回目",
-    "気になる部位：肩 / 首 / 肩甲骨まわり",
+    "気になる部位：肩 / 首 / 頭 / 足 / お任せ",
     "名前：",
   ].join("\n");
 

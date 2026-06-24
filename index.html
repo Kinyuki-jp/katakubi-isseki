@@ -6,7 +6,7 @@
     <title>近畿大学ベースキャンプ専門 肩首一席</title>
     <meta
       name="description"
-      content="近畿大学ベースキャンプ専門。10年の手技で肩と首に30分集中する、予約枠制のボディケア。全メニュー30分1,500円、PayPay決済対応。"
+      content="近畿大学ベースキャンプ専門。10年の手技で肩と首に30分集中する、予約枠制のボディケア。お任せコース30分1,500円、PayPay決済対応。"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260625-paypay1" />
+    <link rel="stylesheet" href="./styles.css?v=20260625-omakase1" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -26,7 +26,7 @@
         </span>
       </a>
       <nav class="nav-links" aria-label="ページ内ナビゲーション">
-        <a href="#menu">メニュー</a>
+        <a href="#menu">コース</a>
         <a href="#price">料金</a>
         <a href="#calendar">空き枠</a>
         <a href="#reserve">予約</a>
@@ -77,33 +77,19 @@
 
       <section class="menu-section" id="menu" aria-labelledby="menu-title">
         <div class="menu-head reveal">
-          <p class="section-kicker">Menu</p>
-          <h2 id="menu-title">三つの手技から選ぶ</h2>
+          <p class="section-kicker">Course</p>
+          <h2 id="menu-title">お任せコースのみ</h2>
           <p>
-            職人の珈琲のように、工程ごとに狙いを分ける。全身、頭、足。それぞれ異なる入口から、
-            その日の重さをほどきます。
+            肩、首、頭、背中、足。入り口は分けず、当日の状態を見て必要な手技を組み立てます。
+            選ぶのは日時だけ。コースは職人に任せてください。
           </p>
         </div>
-        <div class="menu-grid" role="radiogroup" aria-label="施術メニュー">
-          <button class="menu-card is-selected reveal" type="button" data-menu-card data-menu-id="body" role="radio" aria-checked="true">
+        <div class="menu-grid is-single" role="radiogroup" aria-label="施術コース">
+          <button class="menu-card is-selected reveal" type="button" data-menu-card data-menu-id="omakase" role="radio" aria-checked="true">
             <span class="menu-number">01</span>
-            <i data-lucide="person-standing" aria-hidden="true"></i>
-            <strong>全身マッサージ</strong>
-            <span>肩首だけでなく、背中・腰・腕まで流れを整える基本の一席。</span>
-            <em>30分 / 1,500円</em>
-          </button>
-          <button class="menu-card reveal" type="button" data-menu-card data-menu-id="head" role="radio" aria-checked="false">
-            <span class="menu-number">02</span>
             <i data-lucide="sparkles" aria-hidden="true"></i>
-            <strong>ヘッドスパ</strong>
-            <span>考えすぎた頭、目の奥、首の付け根へ。作業前後に切り替える短期集中。</span>
-            <em>30分 / 1,500円</em>
-          </button>
-          <button class="menu-card reveal" type="button" data-menu-card data-menu-id="foot" role="radio" aria-checked="false">
-            <span class="menu-number">03</span>
-            <i data-lucide="footprints" aria-hidden="true"></i>
-            <strong>足スパ</strong>
-            <span>立ちっぱなし、歩き疲れ、冷え感へ。足裏から全身の抜けをつくる。</span>
+            <strong>お任せコース</strong>
+            <span>首肩を中心に、頭・背中・足まで状態に合わせて配分する30分の一席。</span>
             <em>30分 / 1,500円</em>
           </button>
         </div>
@@ -123,7 +109,7 @@
             <span class="pill">公開枠</span>
             <h3>単発一席</h3>
             <p class="price"><span>¥</span>1,500</p>
-            <p>30分 / 全メニュー共通 / 税込</p>
+            <p>30分 / お任せコース / 税込</p>
           </article>
           <article class="price-card">
             <span class="pill muted">継続案</span>
@@ -173,8 +159,8 @@
             <p class="section-kicker">Reserve</p>
             <h2 id="reserve-title">一席を取る</h2>
             <div class="selected-box selected-menu-box" aria-live="polite">
-              <span>メニュー</span>
-              <strong data-selected-menu>全身マッサージ / 30分 / 1,500円</strong>
+              <span>コース</span>
+              <strong data-selected-menu>お任せコース / 30分 / 1,500円</strong>
             </div>
             <div class="selected-box payment-box">
               <span>決済方法</span>
@@ -204,6 +190,10 @@
                 予約を確定
               </button>
             </form>
+            <div class="booking-history-head">
+              <span>予約確認</span>
+              <small>このブラウザの直近予約</small>
+            </div>
             <div class="booking-history" data-booking-history aria-live="polite"></div>
             <p class="reserve-note">
               痛みやしびれが強い場合は、先に医療機関へ相談してください。施術は医療行為ではなく、
@@ -258,6 +248,7 @@
                 予約履歴を消去
               </button>
             </div>
+            <p class="admin-note">予約を確認するときは「予約台帳CSV」を押してください。このブラウザで受け付けた予約を一覧で書き出せます。</p>
             <div class="import-box">
               <label>
                 JSON読み込み
@@ -298,7 +289,7 @@
 
     <footer class="site-footer">
       <p>肩首一席 / Kindai Basecamp Care</p>
-      <p>全メニュー30分1,500円。PayPay決済対応です。</p>
+      <p>お任せコース30分1,500円。PayPay決済対応です。</p>
     </footer>
 
     <dialog class="booking-dialog" data-booking-dialog>
@@ -319,6 +310,6 @@
     </dialog>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="./script.js?v=20260625-paypay1"></script>
+    <script src="./script.js?v=20260625-omakase1"></script>
   </body>
 </html>
