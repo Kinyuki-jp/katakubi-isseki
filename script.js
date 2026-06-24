@@ -4,35 +4,18 @@ const calendarTitle = document.querySelector("[data-calendar-title]");
 const selectedText = document.querySelector("[data-selected-text]");
 const selectedMenuText = document.querySelector("[data-selected-menu]");
 const slotList = document.querySelector("[data-slot-list]");
-const mailLink = document.querySelector("[data-mail-link]");
-const bookingForm = document.querySelector("[data-booking-form]");
-const bookingName = document.querySelector("[data-booking-name]");
-const bookingContact = document.querySelector("[data-booking-contact]");
-const bookingNote = document.querySelector("[data-booking-note]");
-const bookingHistory = document.querySelector("[data-booking-history]");
-const bookingDialog = document.querySelector("[data-booking-dialog]");
-const bookingResult = document.querySelector("[data-booking-result]");
-const paypayLink = document.querySelector("[data-paypay-link]");
-const paypayNote = document.querySelector("[data-paypay-note]");
+const instagramLink = document.querySelector("[data-instagram-link]");
 const adminDate = document.querySelector("[data-admin-date]");
 const adminTime = document.querySelector("[data-admin-time]");
 const adminSlotList = document.querySelector("[data-admin-slot-list]");
 const saveStatus = document.querySelector("[data-save-status]");
 const importJson = document.querySelector("[data-import-json]");
-const paypayUrlInput = document.querySelector("[data-paypay-url]");
 
 const STORAGE_KEY = "katakubi-isseki-availability-v1";
-const BOOKING_STORAGE_KEY = "katakubi-isseki-bookings-v1";
-const PAYMENT_STORAGE_KEY = "katakubi-isseki-payment-v1";
-
-const defaultPaymentConfig = {
-  paypayUrl: "",
-};
 
 const menus = {
   omakase: {
     name: "お任せコース",
-    duration: "30分",
     price: "1,500円",
   },
 };
@@ -60,8 +43,6 @@ let viewMonth = 5;
 let selectedDate = "";
 let selectedSlot = "";
 let selectedMenuId = "omakase";
-let bookings = loadBookings();
-let paymentConfig = { ...defaultPaymentConfig };
 let isDirty = false;
 
 const setHeaderState = () => {
@@ -109,53 +90,6 @@ function firstAvailableDate() {
   return Object.keys(availability).sort()[0] || "";
 }
 
-function loadBookings() {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(BOOKING_STORAGE_KEY) || "[]");
-    return Array.isArray(parsed) ? parsed.slice(0, 20) : [];
-  } catch {
-    return [];
-  }
-}
-
-function persistBookings() {
-  localStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(bookings.slice(0, 20)));
-}
-
-async function loadPublishedPaymentConfig() {
-  try {
-    const response = await fetch("./payment-config.json", { cache: "no-store" });
-    if (!response.ok) return { ...defaultPaymentConfig };
-    const parsed = await response.json();
-    return {
-      paypayUrl: typeof parsed.paypayUrl === "string" ? parsed.paypayUrl.trim() : "",
-    };
-  } catch {
-    return { ...defaultPaymentConfig };
-  }
-}
-
-async function loadPaymentConfig() {
-  const published = await loadPublishedPaymentConfig();
-  try {
-    const stored = JSON.parse(localStorage.getItem(PAYMENT_STORAGE_KEY) || "{}");
-    return {
-      paypayUrl: typeof stored.paypayUrl === "string" ? stored.paypayUrl.trim() : published.paypayUrl,
-    };
-  } catch {
-    return published;
-  }
-}
-
-function persistPaymentConfig() {
-  paymentConfig = {
-    paypayUrl: paypayUrlInput?.value.trim() || "",
-  };
-  localStorage.setItem(PAYMENT_STORAGE_KEY, JSON.stringify(paymentConfig));
-  markDirty(false);
-  updatePayPayLink();
-}
-
 const formatDate = (dateKey) => {
   if (!dateKey) return "未選択";
   const [year, month, day] = dateKey.split("-").map(Number);
@@ -182,55 +116,28 @@ const ensureVisibleMonth = () => {
   viewMonth = month - 1;
 };
 
-const updateMailLink = () => {
+const updateReserveSummary = () => {
   const dateLabel = selectedDate ? formatDate(selectedDate) : "未選択";
   const slotLabel = selectedSlot || "未選択";
   const menu = menus[selectedMenuId];
   selectedText.textContent = selectedDate ? `${dateLabel} ${slotLabel}` : "日程を選んでください";
   if (selectedMenuText) {
-    selectedMenuText.textContent = `${menu.name} / ${menu.duration} / ${menu.price}`;
+    selectedMenuText.textContent = `${menu.name} / ${menu.price}`;
   }
-
-  const subject = "肩首一席 予約希望";
-  const body = [
-    "肩首一席の予約を希望します。",
-    "",
-    `希望日時：${dateLabel} ${slotLabel}`,
-    `コース：${menu.name} ${menu.duration} ${menu.price}`,
-    "来店回数：初回 / 2回目",
-    "気になる部位：肩 / 首 / 頭 / 足 / お任せ",
-    "名前：",
-  ].join("\n");
-
-  if (mailLink) {
-    mailLink.href = `mailto:booking@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }
+  updateInstagramLink();
 };
 
-const updatePayPayLink = () => {
-  if (!paypayLink || !paypayNote) return;
-
-  if (paymentConfig.paypayUrl) {
-    paypayLink.href = paymentConfig.paypayUrl;
-    paypayLink.classList.remove("is-disabled");
-    paypayLink.textContent = "";
-    const icon = document.createElement("i");
-    icon.setAttribute("data-lucide", "wallet");
-    icon.setAttribute("aria-hidden", "true");
-    paypayLink.append(icon, "PayPayで支払う");
-    paypayNote.textContent = "PayPay決済後、予約番号を控えておいてください。";
-  } else {
-    paypayLink.href = "#";
-    paypayLink.classList.add("is-disabled");
-    paypayLink.textContent = "";
-    const icon = document.createElement("i");
-    icon.setAttribute("data-lucide", "wallet");
-    icon.setAttribute("aria-hidden", "true");
-    paypayLink.append(icon, "PayPayは当日QRで支払い");
-    paypayNote.textContent = "PayPay支払いURL未設定のため、当日QRでお支払いください。";
+const updateInstagramLink = () => {
+  if (!instagramLink) return;
+  const url = instagramLink.dataset.instagramUrl?.trim() || instagramLink.getAttribute("href") || "";
+  const hasUrl = url && url !== "#";
+  instagramLink.classList.toggle("is-disabled", !hasUrl);
+  instagramLink.setAttribute("aria-disabled", String(!hasUrl));
+  if (hasUrl) {
+    instagramLink.href = url;
+    instagramLink.target = "_blank";
+    instagramLink.rel = "noopener";
   }
-
-  if (window.lucide) window.lucide.createIcons({ attrs: { "stroke-width": 2 } });
 };
 
 const renderMenuCards = () => {
@@ -239,7 +146,7 @@ const renderMenuCards = () => {
     card.classList.toggle("is-selected", isSelected);
     card.setAttribute("aria-checked", String(isSelected));
   });
-  updateMailLink();
+  updateReserveSummary();
 };
 
 const renderSlots = () => {
@@ -252,7 +159,7 @@ const renderSlots = () => {
     empty.textContent = "この日は満席です。別の日を選んでください。";
     slotList.append(empty);
     selectedSlot = "";
-    updateMailLink();
+    updateReserveSummary();
     return;
   }
 
@@ -268,12 +175,12 @@ const renderSlots = () => {
     button.addEventListener("click", () => {
       selectedSlot = slot;
       renderSlots();
-      updateMailLink();
+      updateReserveSummary();
     });
     slotList.append(button);
   });
 
-  updateMailLink();
+  updateReserveSummary();
 };
 
 const renderCalendar = () => {
@@ -366,130 +273,6 @@ const renderAdminSlots = () => {
   if (window.lucide) window.lucide.createIcons({ attrs: { "stroke-width": 2 } });
 };
 
-const renderBookingHistory = () => {
-  if (!bookingHistory) return;
-  bookingHistory.innerHTML = "";
-
-  if (!bookings.length) {
-    const empty = document.createElement("p");
-    empty.className = "reserve-note";
-    empty.textContent = "このブラウザにはまだ予約履歴がありません。";
-    bookingHistory.append(empty);
-    return;
-  }
-
-  bookings.slice(0, 3).forEach((booking) => {
-    const card = document.createElement("div");
-    card.className = "booking-history-card";
-    const title = document.createElement("strong");
-    title.textContent = `${booking.name} / ${booking.id}`;
-    const detail = document.createElement("span");
-    detail.textContent = `${booking.menuName} / ${formatDate(booking.date)} ${booking.slot} / ${booking.paymentMethod || "PayPay"} / ${booking.paymentStatus || "未確認"}`;
-    card.append(title, detail);
-    bookingHistory.append(card);
-  });
-};
-
-const toCsvValue = (value) => `"${String(value ?? "").replaceAll("\"", "\"\"")}"`;
-
-const exportBookingsCsv = () => {
-  const header = [
-    "予約番号",
-    "作成日時",
-    "名前",
-    "連絡先",
-    "メニュー",
-    "日付",
-    "時間",
-    "時間数",
-    "料金",
-    "決済方法",
-    "決済状態",
-    "メモ",
-  ];
-  const rows = bookings.map((booking) => [
-    booking.id,
-    booking.createdAt,
-    booking.name,
-    booking.contact,
-    booking.menuName,
-    formatDate(booking.date),
-    booking.slot,
-    booking.duration,
-    booking.price,
-    booking.paymentMethod || "PayPay",
-    booking.paymentStatus || "未確認",
-    booking.note,
-  ]);
-  const csv = [header, ...rows].map((row) => row.map(toCsvValue).join(",")).join("\n");
-  const blob = new Blob([`\ufeff${csv}`], { type: "text/csv;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "bookings.csv";
-  document.body.append(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-};
-
-const closeSelectedSlot = () => {
-  if (!selectedDate || !selectedSlot || !availability[selectedDate]) return;
-  availability[selectedDate] = availability[selectedDate].filter((slot) => slot !== selectedSlot);
-  if (!availability[selectedDate].length) delete availability[selectedDate];
-  selectedDate = firstAvailableDate();
-  selectedSlot = availability[selectedDate]?.[0] || "";
-  ensureVisibleMonth();
-  persistAvailability();
-};
-
-const confirmBooking = () => {
-  if (!selectedDate || !selectedSlot) {
-    selectedText.textContent = "先に日程と時間を選んでください";
-    return;
-  }
-
-  if (!bookingName.value.trim() || !bookingContact.value.trim()) {
-    bookingForm.reportValidity();
-    return;
-  }
-
-  const menu = menus[selectedMenuId];
-  const id = `KBC-${selectedDate.replaceAll("-", "")}-${selectedSlot.replace(":", "")}-${String(Date.now()).slice(-4)}`;
-  const booking = {
-    id,
-    menuId: selectedMenuId,
-    menuName: menu.name,
-    duration: menu.duration,
-    price: menu.price,
-    date: selectedDate,
-    slot: selectedSlot,
-    name: bookingName.value.trim(),
-    contact: bookingContact.value.trim(),
-    note: bookingNote.value.trim(),
-    paymentMethod: "PayPay",
-    paymentStatus: "未確認",
-    createdAt: new Date().toISOString(),
-  };
-
-  bookings = [booking, ...bookings].slice(0, 20);
-  persistBookings();
-  closeSelectedSlot();
-  refreshAll();
-  renderBookingHistory();
-  bookingForm.reset();
-
-  if (bookingResult) {
-    bookingResult.textContent = `${booking.id} / ${booking.menuName} / ${formatDate(booking.date)} ${booking.slot} / PayPay ${booking.paymentStatus}`;
-  }
-
-  updatePayPayLink();
-
-  if (bookingDialog?.showModal) {
-    bookingDialog.showModal();
-  }
-};
-
 const addSlot = () => {
   const dateKey = adminDate.value;
   const slot = adminTime.value;
@@ -555,9 +338,7 @@ document.querySelectorAll("[data-month-shift]").forEach((button) => {
 document.querySelector("[data-add-slot]")?.addEventListener("click", addSlot);
 document.querySelector("[data-save-slots]")?.addEventListener("click", persistAvailability);
 document.querySelector("[data-export-slots]")?.addEventListener("click", exportAvailability);
-document.querySelector("[data-export-bookings]")?.addEventListener("click", exportBookingsCsv);
 document.querySelector("[data-import-slots]")?.addEventListener("click", importAvailability);
-document.querySelector("[data-save-payment]")?.addEventListener("click", persistPaymentConfig);
 document.querySelector("[data-reset-slots]")?.addEventListener("click", () => {
   availability = cloneAvailability(defaultAvailability);
   selectedDate = firstAvailableDate();
@@ -567,12 +348,6 @@ document.querySelector("[data-reset-slots]")?.addEventListener("click", () => {
   refreshAll();
 });
 
-document.querySelector("[data-clear-bookings]")?.addEventListener("click", () => {
-  bookings = [];
-  persistBookings();
-  renderBookingHistory();
-});
-
 document.querySelectorAll("[data-menu-card]").forEach((card) => {
   card.addEventListener("click", () => {
     selectedMenuId = card.dataset.menuId;
@@ -580,30 +355,17 @@ document.querySelectorAll("[data-menu-card]").forEach((card) => {
   });
 });
 
-bookingForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  confirmBooking();
-});
-
-document.querySelector("[data-close-dialog]")?.addEventListener("click", () => {
-  bookingDialog?.close();
-});
-
 setHeaderState();
 window.addEventListener("scroll", setHeaderState, { passive: true });
 
 const boot = async () => {
   availability = await loadAvailability();
-  paymentConfig = await loadPaymentConfig();
   selectedDate = firstAvailableDate();
   selectedSlot = availability[selectedDate]?.[0] || "";
   if (adminDate) adminDate.value = selectedDate || "2026-06-26";
   if (adminTime) adminTime.value = selectedSlot || "12:10";
-  if (paypayUrlInput) paypayUrlInput.value = paymentConfig.paypayUrl;
   ensureVisibleMonth();
   refreshAll();
-  renderBookingHistory();
-  updatePayPayLink();
   markDirty(false);
   setupRevealAnimations();
 

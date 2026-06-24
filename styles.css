@@ -9,7 +9,6 @@
   --red: #9d2b21;
   --brass: #c79a4b;
   --mint: #d7e8df;
-  --paypay: #00a6e8;
   --line: rgba(23, 19, 15, 0.16);
   --white-line: rgba(255, 250, 241, 0.22);
   --shadow: 0 24px 70px rgba(23, 19, 15, 0.18);
@@ -482,6 +481,11 @@ h2 {
   width: 100%;
 }
 
+.price-grid.is-single {
+  grid-template-columns: minmax(280px, 460px);
+  justify-content: center;
+}
+
 .price-card {
   min-height: 236px;
   padding: 22px;
@@ -718,8 +722,7 @@ h2 {
   font-size: 1rem;
 }
 
-.selected-menu-box,
-.payment-box {
+.selected-menu-box {
   background: linear-gradient(135deg, #f7efdf, var(--mint));
 }
 
@@ -750,87 +753,11 @@ h2 {
   width: 100%;
 }
 
-.booking-form {
-  display: grid;
-  gap: 10px;
-}
-
-.booking-form label {
-  display: grid;
-  gap: 6px;
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 900;
-}
-
-.booking-form input,
-.booking-form textarea {
-  width: 100%;
-  min-height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--ink);
-  background: #fffdf8;
-  font: inherit;
-  font-weight: 800;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
-}
-
-.booking-form input {
-  padding: 0 12px;
-}
-
-.booking-form textarea {
-  min-height: 78px;
-  padding: 11px 12px;
-  resize: vertical;
-}
-
-.booking-form input:focus,
-.booking-form textarea:focus {
-  outline: none;
-  border-color: var(--brass);
-  box-shadow: 0 0 0 4px rgba(199, 154, 75, 0.18);
-}
-
-.booking-history {
-  display: grid;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.booking-history-head {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  align-items: baseline;
-  margin-top: 16px;
-  font-weight: 900;
-}
-
-.booking-history-head small {
-  color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 800;
-}
-
-.booking-history-card {
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #f4ede2;
-  animation: riseIn 380ms ease both;
-}
-
-.booking-history-card strong {
-  display: block;
-  font-family: "Noto Serif JP", serif;
-}
-
-.booking-history-card span {
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 800;
+.button.is-disabled {
+  pointer-events: none;
+  color: rgba(255, 250, 241, 0.6);
+  background: rgba(23, 19, 15, 0.3);
+  border-color: transparent;
 }
 
 .reserve-note {
@@ -889,8 +816,7 @@ h2 {
 
 .editor-form,
 .editor-tools,
-.import-box,
-.payment-settings {
+.import-box {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -898,8 +824,7 @@ h2 {
 }
 
 .editor-form label,
-.import-box label,
-.payment-settings label {
+.import-box label {
   display: grid;
   gap: 6px;
   color: var(--muted);
@@ -908,7 +833,6 @@ h2 {
 }
 
 .editor-form input,
-.payment-settings input,
 .import-box textarea {
   width: min(220px, 100%);
   min-height: 44px;
@@ -922,18 +846,6 @@ h2 {
 
 .editor-form input {
   padding: 0 12px;
-}
-
-.payment-settings input {
-  width: min(420px, calc(100vw - 76px));
-  padding: 0 12px;
-}
-
-.payment-settings p {
-  flex-basis: 100%;
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.82rem;
 }
 
 .import-box textarea {
@@ -1055,57 +967,6 @@ h2 {
   font-weight: 900;
 }
 
-.booking-dialog {
-  width: min(520px, calc(100% - 34px));
-  border: 0;
-  border-radius: 8px;
-  color: var(--ink);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  padding: 0;
-}
-
-.booking-dialog::backdrop {
-  background: rgba(23, 19, 15, 0.62);
-  backdrop-filter: blur(8px);
-}
-
-.dialog-inner {
-  padding: clamp(24px, 5vw, 36px);
-}
-
-.booking-dialog[open] {
-  animation: dialogIn 260ms ease both;
-}
-
-.button-paypay {
-  width: 100%;
-  margin: 12px 0 10px;
-  color: #fff;
-  background: linear-gradient(135deg, var(--paypay), #0077c8);
-  border-color: transparent;
-}
-
-.button-paypay.is-disabled {
-  pointer-events: none;
-  color: rgba(23, 19, 15, 0.52);
-  background: rgba(23, 19, 15, 0.1);
-}
-
-.paypay-note {
-  margin-bottom: 16px;
-  color: var(--muted);
-  font-size: 0.82rem;
-}
-
-.dialog-inner h2 {
-  margin-bottom: 10px;
-}
-
-.dialog-inner p:not(.section-kicker) {
-  color: var(--muted);
-}
-
 .reveal {
   opacity: 0;
   transform: translateY(22px);
@@ -1152,17 +1013,6 @@ h2 {
   }
   50% {
     box-shadow: 0 0 0 8px rgba(199, 154, 75, 0);
-  }
-}
-
-@keyframes dialogIn {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
   }
 }
 
