@@ -9,6 +9,7 @@
   --red: #9d2b21;
   --brass: #c79a4b;
   --mint: #d7e8df;
+  --paypay: #00a6e8;
   --line: rgba(23, 19, 15, 0.16);
   --white-line: rgba(255, 250, 241, 0.22);
   --shadow: 0 24px 70px rgba(23, 19, 15, 0.18);
@@ -712,7 +713,8 @@ h2 {
   font-size: 1rem;
 }
 
-.selected-menu-box {
+.selected-menu-box,
+.payment-box {
   background: linear-gradient(135deg, #f7efdf, var(--mint));
 }
 
@@ -860,7 +862,8 @@ h2 {
 
 .editor-form,
 .editor-tools,
-.import-box {
+.import-box,
+.payment-settings {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -868,7 +871,8 @@ h2 {
 }
 
 .editor-form label,
-.import-box label {
+.import-box label,
+.payment-settings label {
   display: grid;
   gap: 6px;
   color: var(--muted);
@@ -877,6 +881,7 @@ h2 {
 }
 
 .editor-form input,
+.payment-settings input,
 .import-box textarea {
   width: min(220px, 100%);
   min-height: 44px;
@@ -890,6 +895,18 @@ h2 {
 
 .editor-form input {
   padding: 0 12px;
+}
+
+.payment-settings input {
+  width: min(420px, calc(100vw - 76px));
+  padding: 0 12px;
+}
+
+.payment-settings p {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
 }
 
 .import-box textarea {
@@ -1032,6 +1049,26 @@ h2 {
 
 .booking-dialog[open] {
   animation: dialogIn 260ms ease both;
+}
+
+.button-paypay {
+  width: 100%;
+  margin: 12px 0 10px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--paypay), #0077c8);
+  border-color: transparent;
+}
+
+.button-paypay.is-disabled {
+  pointer-events: none;
+  color: rgba(23, 19, 15, 0.52);
+  background: rgba(23, 19, 15, 0.1);
+}
+
+.paypay-note {
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 0.82rem;
 }
 
 .dialog-inner h2 {

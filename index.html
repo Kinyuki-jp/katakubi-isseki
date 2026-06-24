@@ -6,7 +6,7 @@
     <title>近畿大学ベースキャンプ専門 肩首一席</title>
     <meta
       name="description"
-      content="近畿大学ベースキャンプ専門。10年の手技で肩と首に30分集中する、予約枠制のボディケア。ベースキャンプ限定30分1,000円。"
+      content="近畿大学ベースキャンプ専門。10年の手技で肩と首に30分集中する、予約枠制のボディケア。全メニュー30分1,500円、PayPay決済対応。"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260625-booking2" />
+    <link rel="stylesheet" href="./styles.css?v=20260625-paypay1" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -52,14 +52,14 @@
               </a>
               <a class="button button-quiet" href="#price">
                 <i data-lucide="badge-yen" aria-hidden="true"></i>
-                30分 1,000円
+                30分 1,500円
               </a>
             </div>
           </div>
           <aside class="signature-card" aria-label="サービス概要">
             <p class="signature-label">BASECAMP LIMITED</p>
-            <p class="signature-price"><span>¥</span>1,000</p>
-            <p class="signature-note">30分 / 初回・2回目まで</p>
+            <p class="signature-price"><span>¥</span>1,500</p>
+            <p class="signature-note">30分 / PayPay対応</p>
             <div class="signature-line"></div>
             <p>予約の取れない名店のように、一人ずつ。枠を増やさず、手を抜かない。</p>
           </aside>
@@ -90,21 +90,21 @@
             <i data-lucide="person-standing" aria-hidden="true"></i>
             <strong>全身マッサージ</strong>
             <span>肩首だけでなく、背中・腰・腕まで流れを整える基本の一席。</span>
-            <em>60分 / 4,000円</em>
+            <em>30分 / 1,500円</em>
           </button>
           <button class="menu-card reveal" type="button" data-menu-card data-menu-id="head" role="radio" aria-checked="false">
             <span class="menu-number">02</span>
             <i data-lucide="sparkles" aria-hidden="true"></i>
             <strong>ヘッドスパ</strong>
             <span>考えすぎた頭、目の奥、首の付け根へ。作業前後に切り替える短期集中。</span>
-            <em>30分 / 1,000円</em>
+            <em>30分 / 1,500円</em>
           </button>
           <button class="menu-card reveal" type="button" data-menu-card data-menu-id="foot" role="radio" aria-checked="false">
             <span class="menu-number">03</span>
             <i data-lucide="footprints" aria-hidden="true"></i>
             <strong>足スパ</strong>
             <span>立ちっぱなし、歩き疲れ、冷え感へ。足裏から全身の抜けをつくる。</span>
-            <em>30分 / 1,000円</em>
+            <em>30分 / 1,500円</em>
           </button>
         </div>
       </section>
@@ -112,7 +112,7 @@
       <section class="price-section" id="price" aria-labelledby="price-title">
         <div class="price-copy">
           <p class="section-kicker">Price</p>
-          <h2 id="price-title">30分 1,000円。</h2>
+          <h2 id="price-title">30分 1,500円。</h2>
           <p>
             相場より低い価格ですが、価値を下げるためではありません。近畿大学ベースキャンプで
             まず体験してもらうための限定価格です。
@@ -121,21 +121,21 @@
         <div class="price-grid" aria-label="料金プラン">
           <article class="price-card is-featured">
             <span class="pill">公開枠</span>
-            <h3>肩首一席</h3>
-            <p class="price"><span>¥</span>1,000</p>
-            <p>30分 / 初回・2回目まで / 税込</p>
+            <h3>単発一席</h3>
+            <p class="price"><span>¥</span>1,500</p>
+            <p>30分 / 全メニュー共通 / 税込</p>
           </article>
           <article class="price-card">
             <span class="pill muted">継続案</span>
             <h3>月4席</h3>
-            <p class="price"><span>¥</span>3,000</p>
+            <p class="price"><span>¥</span>5,000</p>
             <p>30分 x 4回 / ベースキャンプ限定</p>
           </article>
           <article class="price-card">
             <span class="pill muted">通常案</span>
-            <h3>60分指名</h3>
-            <p class="price"><span>¥</span>4,000</p>
-            <p>紹介・継続希望者向けの候補</p>
+            <h3>追加30分</h3>
+            <p class="price"><span>¥</span>1,500</p>
+            <p>空き枠がある場合のみ延長可</p>
           </article>
         </div>
       </section>
@@ -174,7 +174,11 @@
             <h2 id="reserve-title">一席を取る</h2>
             <div class="selected-box selected-menu-box" aria-live="polite">
               <span>メニュー</span>
-              <strong data-selected-menu>全身マッサージ / 60分 / 4,000円</strong>
+              <strong data-selected-menu>全身マッサージ / 30分 / 1,500円</strong>
+            </div>
+            <div class="selected-box payment-box">
+              <span>決済方法</span>
+              <strong data-selected-payment>PayPay / 予約後に支払い案内</strong>
             </div>
             <div class="selected-box" aria-live="polite">
               <span>選択中</span>
@@ -194,6 +198,7 @@
                 ひとこと
                 <textarea data-booking-note placeholder="肩・首・足など、気になる場所"></textarea>
               </label>
+              <input type="hidden" data-booking-payment value="PayPay" />
               <button class="button button-primary" type="submit" data-confirm-booking>
                 <i data-lucide="send" aria-hidden="true"></i>
                 予約を確定
@@ -211,7 +216,7 @@
           <summary>
             <span>
               <span class="section-kicker">Settings</span>
-              <strong>時間枠を編集</strong>
+              <strong>時間枠と予約台帳</strong>
             </span>
             <i data-lucide="settings-2" aria-hidden="true"></i>
           </summary>
@@ -236,6 +241,10 @@
                 <i data-lucide="save" aria-hidden="true"></i>
                 保存
               </button>
+              <button class="tool-button" type="button" data-export-bookings>
+                <i data-lucide="file-down" aria-hidden="true"></i>
+                予約台帳CSV
+              </button>
               <button class="tool-button" type="button" data-export-slots>
                 <i data-lucide="download" aria-hidden="true"></i>
                 JSON書き出し
@@ -259,6 +268,17 @@
                 読み込む
               </button>
             </div>
+            <div class="payment-settings">
+              <label>
+                PayPay支払いURL
+                <input type="url" data-paypay-url placeholder="https://..." />
+              </label>
+              <button class="tool-button" type="button" data-save-payment>
+                <i data-lucide="wallet" aria-hidden="true"></i>
+                PayPay設定を保存
+              </button>
+              <p>PayPay for BusinessのQR/決済URLがある場合に設定してください。未設定時は当日QR払いの案内になります。</p>
+            </div>
             <p class="save-status" data-save-status aria-live="polite">保存済み</p>
           </div>
         </details>
@@ -278,7 +298,7 @@
 
     <footer class="site-footer">
       <p>肩首一席 / Kindai Basecamp Care</p>
-      <p>30分1,000円はベースキャンプ限定の公開枠価格です。</p>
+      <p>全メニュー30分1,500円。PayPay決済対応です。</p>
     </footer>
 
     <dialog class="booking-dialog" data-booking-dialog>
@@ -286,6 +306,11 @@
         <p class="section-kicker">Reserved</p>
         <h2>予約を受け付けました</h2>
         <p data-booking-result></p>
+        <a class="button button-paypay" data-paypay-link href="#" target="_blank" rel="noopener">
+          <i data-lucide="wallet" aria-hidden="true"></i>
+          PayPayで支払う
+        </a>
+        <p class="paypay-note" data-paypay-note>PayPay支払いリンク未設定の場合は、当日QRでお支払いください。</p>
         <button class="button button-primary" type="button" data-close-dialog>
           <i data-lucide="check" aria-hidden="true"></i>
           閉じる
@@ -294,6 +319,6 @@
     </dialog>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="./script.js?v=20260625-booking2"></script>
+    <script src="./script.js?v=20260625-paypay1"></script>
   </body>
 </html>
