@@ -29,11 +29,11 @@ const defaultAvailability = {
 
 const cloneAvailability = (source) => JSON.parse(JSON.stringify(source));
 
-let availability = loadAvailability();
+let availability = cloneAvailability(defaultAvailability);
 let viewYear = 2026;
 let viewMonth = 5;
-let selectedDate = firstAvailableDate();
-let selectedSlot = availability[selectedDate]?.[0] || "";
+let selectedDate = "";
+let selectedSlot = "";
 let isDirty = false;
 
 const setHeaderState = () => {
@@ -54,14 +54,26 @@ function normalizeAvailability(source) {
   return Object.fromEntries(Object.entries(normalized).sort(([a], [b]) => a.localeCompare(b)));
 }
 
-function loadAvailability() {
+async function loadPublishedAvailability() {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) return cloneAvailability(defaultAvailability);
-    const parsed = normalizeAvailability(JSON.parse(stored));
+    const response = await fetch("./availability.json", { cache: "no-store" });
+    if (!response.ok) return cloneAvailability(defaultAvailability);
+    const parsed = normalizeAvailability(await response.json());
     return Object.keys(parsed).length ? parsed : cloneAvailability(defaultAvailability);
   } catch {
     return cloneAvailability(defaultAvailability);
+  }
+}
+
+async function loadAvailability() {
+  const published = await loadPublishedAvailability();
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) return published;
+    const parsed = normalizeAvailability(JSON.parse(stored));
+    return Object.keys(parsed).length ? parsed : published;
+  } catch {
+    return published;
   }
 }
 
@@ -260,7 +272,7 @@ const exportAvailability = () => {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "katakubi-isseki-availability.json";
+  link.download = "availability.json";
   document.body.append(link);
   link.click();
   link.remove();
@@ -315,16 +327,23 @@ document.querySelector("[data-reset-slots]")?.addEventListener("click", () => {
 setHeaderState();
 window.addEventListener("scroll", setHeaderState, { passive: true });
 
-if (adminDate) adminDate.value = selectedDate || "2026-06-26";
-if (adminTime) adminTime.value = selectedSlot || "12:10";
-ensureVisibleMonth();
-refreshAll();
-markDirty(false);
+const boot = async () => {
+  availability = await loadAvailability();
+  selectedDate = firstAvailableDate();
+  selectedSlot = availability[selectedDate]?.[0] || "";
+  if (adminDate) adminDate.value = selectedDate || "2026-06-26";
+  if (adminTime) adminTime.value = selectedSlot || "12:10";
+  ensureVisibleMonth();
+  refreshAll();
+  markDirty(false);
 
-if (window.lucide) {
-  window.lucide.createIcons({
-    attrs: {
-      "stroke-width": 2,
-    },
-  });
-}
+  if (window.lucide) {
+    window.lucide.createIcons({
+      attrs: {
+        "stroke-width": 2,
+      },
+    });
+  }
+};
+
+boot();

@@ -16,3 +16,6 @@ git push
 
 ページ下部の「時間枠を編集」から、日付と時間を自由に追加できます。
 保存した枠はブラウザに保持され、JSON書き出し/読み込みで移行できます。
+
+公開用の初期枠は `availability.json` から読み込まれます。
+枠をGitHubに反映する場合は、書き出したJSONを `availability.json` として置き換えてcommitし、pushしてください。
