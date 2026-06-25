@@ -4,13 +4,23 @@
 
 ## 公開
 
-この `outputs` フォルダの中身をGitHubリポジトリのルートとしてpushしてください。
+GitHub Pagesで公開しています。
+
+- 公開URL: https://kinyuki-jp.github.io/katakubi-isseki/
+- GitHub: https://github.com/Kinyuki-jp/katakubi-isseki
 
 ```bash
 git push
 ```
 
-リモート未設定の場合だけ、初回に `git remote add origin <GitHub repository URL>` を実行してください。
+このフォルダの `main` ブランチへpushすると、公開ページへ反映されます。
+
+## QRポスター
+
+- QRコード: `qr-katakubi-isseki.png` / `qr-katakubi-isseki.svg`
+- 印刷用ポスター: `poster-katakubi-isseki.pdf`
+- 画像ポスター: `poster-katakubi-isseki.png`
+- 編集用ポスターHTML: `poster.html`
 
 ## 予約
 
