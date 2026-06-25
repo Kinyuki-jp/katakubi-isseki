@@ -24,4 +24,4 @@ git push
 
 コースは「お任せコース」のみです。
 サイト上では空き枠を見せ、最終予約はInstagram DMへ誘導する設計です。
-InstagramのURLが決まったら、`index.html` の `data-instagram-link` の `href` に設定してください。
+Instagram: https://www.instagram.com/kinyukinomati2/
