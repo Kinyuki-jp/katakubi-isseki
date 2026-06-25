@@ -31,34 +31,24 @@ body {
   place-items: center;
   overflow: hidden;
   pointer-events: none;
-  background: #f8f3e7;
-  animation: openingGone 520ms ease 5.8s forwards;
-}
-
-.opening::before,
-.opening::after {
-  position: absolute;
-  inset: -18%;
-  z-index: 0;
-  content: "";
-  opacity: 0;
-  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(250, 248, 240, 0.98)),
+    repeating-linear-gradient(12deg, rgba(23, 19, 15, 0.026) 0 1px, transparent 1px 13px),
+    repeating-linear-gradient(96deg, rgba(23, 19, 15, 0.018) 0 1px, transparent 1px 17px);
+  animation: openingGone 520ms ease 7.05s forwards;
 }
 
 .opening::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: "";
+  opacity: 0.55;
+  pointer-events: none;
   background:
-    radial-gradient(circle at 20% 18%, rgba(199, 154, 75, 0.18), transparent 30%),
-    repeating-linear-gradient(115deg, rgba(23, 19, 15, 0.05) 0 1px, transparent 1px 11px);
-  animation: washiReveal 2400ms ease 2.45s forwards;
-}
-
-.opening::after {
-  background:
-    linear-gradient(116deg, transparent 0 43%, rgba(143, 36, 28, 0.98) 43.4%, rgba(255, 250, 241, 0.96) 44%, transparent 45%),
-    radial-gradient(ellipse at 82% 18%, rgba(31, 73, 42, 0.26), transparent 18%),
-    repeating-linear-gradient(98deg, transparent 0 38px, rgba(31, 73, 42, 0.16) 39px 42px, transparent 43px 82px);
-  mix-blend-mode: multiply;
-  animation: bladeAndBamboo 1600ms cubic-bezier(0.22, 1, 0.36, 1) 3.35s forwards;
+    radial-gradient(circle at 22% 32%, rgba(23, 19, 15, 0.035), transparent 1.4px),
+    radial-gradient(circle at 72% 58%, rgba(23, 19, 15, 0.028), transparent 1.2px);
+  background-size: 42px 38px, 56px 50px;
 }
 
 .door {
@@ -68,10 +58,10 @@ body {
   border-right: 1px solid rgba(199, 154, 75, 0.42);
   background:
     linear-gradient(90deg, rgba(15, 12, 9, 0.36), rgba(15, 12, 9, 0.08)),
-    url("./assets/tiger-fusuma-door.png") left center / 200% 100% no-repeat;
+    url("./assets/tiger-fusuma-side.png") left center / 200% 100% no-repeat;
   box-shadow: inset -16px 0 40px rgba(0, 0, 0, 0.35);
   transform-origin: left center;
-  animation: doorLeftOpen 1900ms cubic-bezier(0.68, 0, 0.18, 1) 900ms forwards;
+  animation: doorLeftOpen 3400ms cubic-bezier(0.7, 0, 0.18, 1) 620ms forwards;
 }
 
 .door-right {
@@ -80,28 +70,10 @@ body {
   border-left: 1px solid rgba(199, 154, 75, 0.42);
   background:
     linear-gradient(270deg, rgba(15, 12, 9, 0.36), rgba(15, 12, 9, 0.08)),
-    url("./assets/tiger-fusuma-door.png") right center / 200% 100% no-repeat;
+    url("./assets/tiger-fusuma-side.png") right center / 200% 100% no-repeat;
   box-shadow: inset 16px 0 40px rgba(0, 0, 0, 0.35);
   transform-origin: right center;
   animation-name: doorRightOpen;
-}
-
-.door span {
-  position: absolute;
-  top: 50%;
-  right: 18px;
-  width: 34px;
-  height: 34px;
-  border: 2px solid rgba(9, 7, 5, 0.68);
-  border-radius: 50%;
-  background: radial-gradient(circle, #2a1710 0 34%, #a57b32 38% 58%, #1d120c 62%);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.36);
-  transform: translateY(-50%);
-}
-
-.door-right span {
-  right: auto;
-  left: 18px;
 }
 
 .opening-copy {
@@ -132,42 +104,38 @@ body {
 .story-stage {
   position: relative;
   z-index: 2;
-  display: grid;
-  gap: 12px;
-  width: min(880px, calc(100% - 36px));
-  padding: clamp(26px, 5vw, 56px);
-  border: 1px solid rgba(23, 19, 15, 0.14);
-  border-radius: 8px;
+  display: flex;
+  width: min(1100px, calc(100% - 36px));
+  min-height: 52svh;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 6vw, 72px);
   color: var(--ink);
   background:
-    linear-gradient(90deg, rgba(248, 243, 231, 0.96), rgba(255, 253, 247, 0.92)),
-    repeating-linear-gradient(0deg, rgba(23, 19, 15, 0.035) 0 1px, transparent 1px 8px);
-  box-shadow: 0 30px 80px rgba(23, 19, 15, 0.18);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.76), rgba(250, 248, 240, 0.72)),
+    repeating-linear-gradient(8deg, rgba(23, 19, 15, 0.022) 0 1px, transparent 1px 14px),
+    repeating-linear-gradient(94deg, rgba(23, 19, 15, 0.016) 0 1px, transparent 1px 18px);
   opacity: 0;
-  transform: translateY(20px) scale(0.985);
-  animation: storyStage 2900ms cubic-bezier(0.22, 1, 0.36, 1) 2.75s forwards;
+  transform: translateY(8px);
+  animation: storyStage 2600ms cubic-bezier(0.22, 1, 0.36, 1) 4.08s forwards;
 }
 
-.story-small,
-.story-main {
+.story-line {
   margin-bottom: 0;
-  font-weight: 900;
-}
-
-.story-small {
-  color: var(--red);
-  font-size: 0.88rem;
-}
-
-.story-main {
-  color: rgba(23, 19, 15, 0.72);
-  font-size: clamp(1rem, 2vw, 1.28rem);
-}
-
-.story-stage strong {
   font-family: "Noto Serif JP", serif;
-  font-size: clamp(2rem, 5.8vw, 4.8rem);
+  font-size: clamp(2.7rem, 8vw, 7rem);
+  font-weight: 900;
   line-height: 1.06;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.story-line span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.42em);
+  filter: blur(7px);
+  animation: letterIn 520ms cubic-bezier(0.22, 1, 0.36, 1) calc(4.38s + var(--i) * 130ms) forwards;
 }
 
 a {
@@ -214,7 +182,7 @@ h1 {
   position: relative;
   z-index: 1;
   width: min(720px, 100%);
-  animation: riseIn 720ms cubic-bezier(0.2, 0.9, 0.2, 1) 5.55s both;
+  animation: riseIn 720ms cubic-bezier(0.2, 0.9, 0.2, 1) 6.85s both;
 }
 
 .eyebrow,
@@ -353,13 +321,13 @@ h1 {
 
 @keyframes doorLeftOpen {
   to {
-    transform: translateX(-103%);
+    transform: translateX(-108%) scaleX(0.96);
   }
 }
 
 @keyframes doorRightOpen {
   to {
-    transform: translateX(103%);
+    transform: translateX(108%) scaleX(0.96);
   }
 }
 
@@ -379,44 +347,27 @@ h1 {
   }
 }
 
-@keyframes washiReveal {
-  0% {
-    opacity: 0;
-    transform: scale(1.04);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes bladeAndBamboo {
-  0% {
-    opacity: 0;
-    transform: translateX(-12%) scale(1.04);
-  }
-  44% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.72;
-    transform: translateX(0) scale(1);
-  }
-}
-
 @keyframes storyStage {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.985);
+    transform: translateY(8px);
   }
   22%,
   78% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
   100% {
     opacity: 0;
-    transform: translateY(-14px) scale(1.01);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes letterIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
   }
 }
 
@@ -476,7 +427,12 @@ h1 {
   }
 
   .story-stage {
-    gap: 10px;
+    width: 100%;
+    min-height: 42svh;
+  }
+
+  .story-line {
+    font-size: clamp(2.35rem, 13vw, 4.2rem);
   }
 }
 
