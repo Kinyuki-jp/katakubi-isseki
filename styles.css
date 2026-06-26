@@ -344,6 +344,10 @@ h1 {
   flex: 0 0 auto;
 }
 
+.mobile-sticky-cta {
+  display: none;
+}
+
 @keyframes riseIn {
   from {
     opacity: 0;
@@ -464,50 +468,194 @@ h1 {
 }
 
 @media (max-width: 680px) {
+  body {
+    padding-bottom: calc(82px + env(safe-area-inset-bottom));
+  }
+
+  .opening {
+    animation: openingGone 420ms ease 4.85s forwards;
+  }
+
+  .door {
+    background-size: auto 100%;
+    animation-duration: 2100ms;
+    animation-delay: 320ms;
+  }
+
+  .opening-copy {
+    gap: 6px;
+    padding: 20px;
+    animation: openingCopy 1600ms ease forwards;
+  }
+
+  .opening-copy strong {
+    font-size: clamp(2.25rem, 12vw, 3.7rem);
+  }
+
+  .story-stage {
+    width: calc(100% - 24px);
+    min-height: 36svh;
+    padding: 18px;
+    animation: storyStage 2200ms cubic-bezier(0.22, 1, 0.36, 1) 2.18s forwards;
+  }
+
+  .story-line {
+    font-size: clamp(2.24rem, 12.5vw, 3.75rem);
+  }
+
+  .story-line span {
+    animation-duration: 560ms;
+    animation-delay: calc(2.48s + var(--delay));
+  }
+
+  .story-line span::before,
+  .story-line span::after {
+    animation-duration: 560ms;
+    animation-delay: calc(2.48s + var(--delay));
+  }
+
   .hero {
-    padding: 24px 18px;
+    min-height: 100svh;
+    padding: 86px 16px calc(96px + env(safe-area-inset-bottom));
     align-items: end;
   }
 
   .hero-bg {
-    background-position: 58% center;
+    background-position: 61% center;
+    transform: scale(1.04);
   }
 
   .hero-shade {
     background:
-      linear-gradient(90deg, rgba(13, 10, 8, 0.88), rgba(13, 10, 8, 0.36)),
-      linear-gradient(0deg, rgba(13, 10, 8, 0.9) 0%, rgba(13, 10, 8, 0.2) 64%);
+      linear-gradient(180deg, rgba(13, 10, 8, 0.42) 0%, rgba(13, 10, 8, 0.58) 38%, rgba(13, 10, 8, 0.96) 100%),
+      linear-gradient(90deg, rgba(13, 10, 8, 0.76), rgba(13, 10, 8, 0.24));
+  }
+
+  .hero-content {
+    display: grid;
+    gap: 12px;
+    width: 100%;
+    animation-delay: 4.8s;
+  }
+
+  .eyebrow {
+    margin-bottom: 0;
+    font-size: 0.7rem;
+    line-height: 1.2;
   }
 
   h1 {
-    font-size: clamp(3.05rem, 16vw, 4.65rem);
+    margin-bottom: 2px;
+    font-size: clamp(2.12rem, 10.6vw, 3.05rem);
+    line-height: 0.96;
+    white-space: nowrap;
+  }
+
+  .lead {
+    margin-bottom: 2px;
+    color: rgba(255, 250, 241, 0.9);
+    font-size: 0.95rem;
+    line-height: 1.75;
   }
 
   .reservation-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-bottom: 0;
+    border-radius: 8px;
+    background: rgba(18, 13, 10, 0.64);
   }
 
   .reservation-card > div {
-    min-height: 72px;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+    min-height: 76px;
+    padding: 12px 10px;
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
   }
 
   .reservation-card > div:last-child {
+    border-right: 0;
     border-bottom: 0;
+  }
+
+  .reservation-card strong {
+    font-size: clamp(0.93rem, 4vw, 1.08rem);
+    line-height: 1.2;
+  }
+
+  .label,
+  .dm-title {
+    font-size: 0.68rem;
+  }
+
+  .dm-box {
+    margin-bottom: 0;
+    padding: 14px;
+    background: rgba(18, 13, 10, 0.7);
+  }
+
+  .dm-box p {
+    margin-bottom: 8px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .dm-box p:not(.dm-title):not(.dm-note) {
+    display: inline-block;
+    max-width: 100%;
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 250, 241, 0.14);
+    border-radius: 8px;
+    background: rgba(255, 250, 241, 0.08);
+  }
+
+  .dm-note {
+    margin-top: 4px !important;
+    font-size: 0.79rem;
+    line-height: 1.65;
+  }
+
+  .actions {
+    display: none;
   }
 
   .button {
     width: 100%;
   }
 
-  .story-stage {
-    width: 100%;
-    min-height: 42svh;
+  .mobile-sticky-cta {
+    position: fixed;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    left: 14px;
+    z-index: 30;
+    display: flex;
+    min-height: 58px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 250, 241, 0.16);
+    border-radius: 8px;
+    color: #1b120b;
+    background: var(--brass);
+    font-weight: 900;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.36);
+    transform: translateY(88px);
+    animation: stickyIn 520ms cubic-bezier(0.2, 0.9, 0.2, 1) 5.05s forwards, softPulse 2600ms ease-in-out 5.8s infinite;
   }
 
-  .story-line {
-    font-size: clamp(2.35rem, 13vw, 4.2rem);
+  .mobile-sticky-cta svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mobile-sticky-cta span {
+    line-height: 1;
+  }
+}
+
+@keyframes stickyIn {
+  to {
+    transform: translateY(0);
   }
 }
 
