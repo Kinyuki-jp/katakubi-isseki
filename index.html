@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700;900&family=Yuji+Syuku&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260626-mobile1" />
+    <link rel="stylesheet" href="./styles.css?v=20260626-brushse1" />
   </head>
   <body>
     <div class="opening" aria-hidden="true">
@@ -23,21 +23,44 @@
       <div class="door door-right"></div>
       <div class="opening-copy">
         <p>肩首一席</p>
-        <strong>マッサージします。</strong>
+        <strong>
+          <span class="title-line">マッサージ</span>
+          <span class="title-line">します。</span>
+        </strong>
       </div>
       <div class="story-stage">
-        <p class="story-line" aria-label="10年間修行してきた">
-          <span style="--delay: 0ms" data-char="1">1</span>
-          <span style="--delay: 145ms" data-char="0">0</span>
-          <span style="--delay: 290ms" data-char="年">年</span>
-          <span style="--delay: 435ms" data-char="間">間</span>
-          <span style="--delay: 580ms" data-char="修">修</span>
-          <span style="--delay: 725ms" data-char="行">行</span>
-          <span style="--delay: 870ms" data-char="し">し</span>
-          <span style="--delay: 1015ms" data-char="て">て</span>
-          <span style="--delay: 1160ms" data-char="き">き</span>
-          <span style="--delay: 1305ms" data-char="た">た</span>
-        </p>
+        <div class="story-brush" aria-label="10年間修行してきた">
+          <svg class="story-brush-svg" viewBox="0 0 1200 320" role="img" aria-hidden="true">
+            <defs>
+              <filter id="inkBleed">
+                <feTurbulence baseFrequency="0.024" numOctaves="2" seed="8" type="fractalNoise" />
+                <feDisplacementMap in="SourceGraphic" scale="1.4" />
+              </filter>
+              <mask id="storyInkMask" maskUnits="userSpaceOnUse">
+                <rect width="1200" height="320" fill="black" />
+                <g class="ink-strokes">
+                  <path class="brush-stroke" style="--delay: 0ms; --dash: 760" d="M74 92 C 190 64, 312 94, 432 76 S 690 74, 814 90 S 1028 104, 1128 78" />
+                  <path class="brush-stroke" style="--delay: 520ms; --dash: 690" d="M118 146 C 234 128, 350 168, 466 144 S 704 122, 816 148 S 1030 170, 1110 144" />
+                  <path class="brush-stroke" style="--delay: 1040ms; --dash: 720" d="M88 204 C 214 188, 330 218, 454 202 S 710 180, 840 206 S 1048 230, 1138 202" />
+                  <path class="brush-stroke" style="--delay: 1640ms; --dash: 620" d="M178 58 C 160 116, 182 174, 152 246" />
+                  <path class="brush-stroke" style="--delay: 2180ms; --dash: 700" d="M314 50 C 348 112, 326 170, 368 258" />
+                  <path class="brush-stroke" style="--delay: 2700ms; --dash: 620" d="M520 48 C 492 110, 520 170, 486 260" />
+                  <path class="brush-stroke" style="--delay: 3200ms; --dash: 700" d="M706 48 C 748 104, 706 174, 762 258" />
+                  <path class="brush-stroke" style="--delay: 3700ms; --dash: 660" d="M958 54 C 910 114, 978 170, 920 260" />
+                </g>
+              </mask>
+              <clipPath id="storyTextClip" clipPathUnits="userSpaceOnUse">
+                <rect class="story-reveal-rect" x="0" y="0" width="1200" height="320" />
+              </clipPath>
+            </defs>
+            <text class="story-brush-text" x="600" y="162" text-anchor="middle" dominant-baseline="middle" mask="url(#storyInkMask)">10年間修行してきた</text>
+            <text class="story-brush-final" x="600" y="162" text-anchor="middle" dominant-baseline="middle" clip-path="url(#storyTextClip)">10年間修行してきた</text>
+          </svg>
+        </div>
+        <div class="story-copy">
+          <p class="story-tagline">10年間修行してきた至高のマッサージ方法をあなたに施術します</p>
+          <p class="story-sublime">あなたを至高の快楽に持ち込む</p>
+        </div>
       </div>
     </div>
 
@@ -48,7 +71,10 @@
 
         <div class="hero-content">
           <p class="eyebrow">Kindai Basecamp / Instagram DM</p>
-          <h1 id="hero-title">マッサージします。</h1>
+          <h1 id="hero-title">
+            <span class="title-line">マッサージ</span>
+            <span class="title-line">します。</span>
+          </h1>
           <p class="lead">
             予約はInstagramのDMへ。希望する日付と時間を、そのまま送ってください。
           </p>
@@ -60,11 +86,7 @@
             </div>
             <div>
               <span class="label">Price</span>
-              <strong>1,500円</strong>
-            </div>
-            <div>
-              <span class="label">Time</span>
-              <strong>18:00 - 24:00</strong>
+              <strong>30分 1,500円</strong>
             </div>
           </div>
 
@@ -102,6 +124,6 @@
     </a>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="./script.js?v=20260626-mobile1"></script>
+    <script src="./script.js?v=20260626-brushse1"></script>
   </body>
 </html>

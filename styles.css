@@ -35,7 +35,7 @@ body {
     linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(250, 248, 240, 0.98)),
     repeating-linear-gradient(12deg, rgba(23, 19, 15, 0.026) 0 1px, transparent 1px 13px),
     repeating-linear-gradient(96deg, rgba(23, 19, 15, 0.018) 0 1px, transparent 1px 17px);
-  animation: openingGone 520ms ease 7.45s forwards;
+  animation: openingGone 780ms ease 18.4s forwards;
 }
 
 .opening::before {
@@ -61,7 +61,7 @@ body {
     url("./assets/tiger-fusuma-side.png") left center / 200% 100% no-repeat;
   box-shadow: inset -16px 0 40px rgba(0, 0, 0, 0.35);
   transform-origin: left center;
-  animation: doorLeftOpen 3400ms cubic-bezier(0.7, 0, 0.18, 1) 620ms forwards;
+  animation: doorLeftOpen 6800ms cubic-bezier(0.72, 0, 0.16, 1) 900ms forwards;
 }
 
 .door-right {
@@ -85,7 +85,7 @@ body {
   color: #fffaf1;
   text-align: center;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.64);
-  animation: openingCopy 2500ms ease forwards;
+  animation: openingCopy 4200ms ease forwards;
 }
 
 .opening-copy p {
@@ -98,17 +98,24 @@ body {
 .opening-copy strong {
   font-family: "Noto Serif JP", serif;
   font-size: clamp(2.4rem, 8vw, 5.6rem);
-  line-height: 1.02;
+  line-height: 0.98;
+}
+
+.title-line {
+  display: block;
 }
 
 .story-stage {
   position: relative;
   z-index: 2;
-  display: flex;
+  display: grid;
   width: min(1100px, calc(100% - 36px));
-  min-height: 52svh;
+  min-height: 58svh;
   align-items: center;
+  align-content: center;
   justify-content: center;
+  justify-items: center;
+  gap: clamp(18px, 3vw, 32px);
   padding: clamp(24px, 6vw, 72px);
   color: var(--ink);
   background:
@@ -117,7 +124,51 @@ body {
     repeating-linear-gradient(94deg, rgba(23, 19, 15, 0.016) 0 1px, transparent 1px 18px);
   opacity: 0;
   transform: translateY(8px);
-  animation: storyStage 3100ms cubic-bezier(0.22, 1, 0.36, 1) 4.08s forwards;
+  animation: storyStage 11300ms cubic-bezier(0.22, 1, 0.36, 1) 6.8s forwards;
+}
+
+.story-brush {
+  width: min(980px, 100%);
+}
+
+.story-brush-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.story-brush-text,
+.story-brush-final {
+  fill: rgba(23, 19, 15, 0.98);
+  filter: url("#inkBleed");
+  font-family: "Yuji Syuku", "Noto Serif JP", serif;
+  font-size: 118px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.story-brush-final {
+  opacity: 1;
+}
+
+.story-reveal-rect {
+  transform: scaleX(0);
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: revealBrushText 7200ms linear 7.32s forwards;
+}
+
+.brush-stroke {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 58px;
+  stroke-dasharray: var(--dash);
+  stroke-dashoffset: var(--dash);
+  filter: blur(1px);
+  animation: writeStroke 2600ms cubic-bezier(0.14, 0.74, 0.18, 1) calc(7.32s + var(--delay)) forwards;
 }
 
 .story-line {
@@ -131,12 +182,44 @@ body {
   text-shadow: 0 1px 0 rgba(23, 19, 15, 0.08);
 }
 
+.story-tagline {
+  margin: 0;
+  color: rgba(23, 19, 15, 0.88);
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(1.04rem, 2.05vw, 1.76rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: taglineIn 1300ms cubic-bezier(0.2, 0.9, 0.2, 1) 14.85s forwards;
+}
+
+.story-copy {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  max-width: 820px;
+  text-align: center;
+}
+
+.story-sublime {
+  margin: 0;
+  color: rgba(143, 36, 28, 0.9);
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(0.98rem, 1.75vw, 1.42rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: taglineIn 1300ms cubic-bezier(0.2, 0.9, 0.2, 1) 15.22s forwards;
+}
+
 .story-line span {
   position: relative;
   display: inline-block;
   color: transparent;
   transform: translateY(0.08em) scale(0.985);
-  animation: inkSettle 860ms cubic-bezier(0.22, 1, 0.36, 1) calc(4.42s + var(--delay)) forwards;
+  animation: inkSettle 1150ms cubic-bezier(0.22, 1, 0.36, 1) calc(6.68s + var(--delay)) forwards;
 }
 
 .story-line span::before {
@@ -152,7 +235,7 @@ body {
     -0.015em 0.02em 0 rgba(23, 19, 15, 0.08);
   transform: scaleX(0.985);
   transform-origin: left center;
-  animation: inkReveal 860ms cubic-bezier(0.12, 0.82, 0.18, 1) calc(4.42s + var(--delay)) forwards;
+  animation: inkReveal 1150ms cubic-bezier(0.12, 0.82, 0.18, 1) calc(6.68s + var(--delay)) forwards;
 }
 
 .story-line span::after {
@@ -171,7 +254,7 @@ body {
   opacity: 0;
   transform: translateX(-0.24em) rotate(-13deg) scale(0.56, 0.8);
   transform-origin: center;
-  animation: brushSweep 860ms cubic-bezier(0.16, 0.86, 0.2, 1) calc(4.42s + var(--delay)) forwards;
+  animation: brushSweep 1150ms cubic-bezier(0.16, 0.86, 0.2, 1) calc(6.68s + var(--delay)) forwards;
 }
 
 a {
@@ -218,7 +301,7 @@ h1 {
   position: relative;
   z-index: 1;
   width: min(720px, 100%);
-  animation: riseIn 720ms cubic-bezier(0.2, 0.9, 0.2, 1) 7.25s both;
+  animation: riseIn 720ms cubic-bezier(0.2, 0.9, 0.2, 1) 18.7s both;
 }
 
 .eyebrow,
@@ -263,7 +346,7 @@ h1 {
 
 .reservation-card {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-bottom: 14px;
 }
 
@@ -393,7 +476,7 @@ h1 {
     transform: translateY(8px);
   }
   22%,
-  78% {
+  88% {
     opacity: 1;
     transform: translateY(0);
   }
@@ -450,6 +533,39 @@ h1 {
   }
 }
 
+@keyframes writeStroke {
+  0% {
+    stroke-dashoffset: var(--dash);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes finalInk {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes revealBrushText {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes taglineIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes openingGone {
   to {
     opacity: 0;
@@ -473,19 +589,19 @@ h1 {
   }
 
   .opening {
-    animation: openingGone 420ms ease 4.85s forwards;
+    animation: openingGone 540ms ease 14.5s forwards;
   }
 
   .door {
     background-size: auto 100%;
-    animation-duration: 2100ms;
-    animation-delay: 320ms;
+    animation-duration: 4700ms;
+    animation-delay: 620ms;
   }
 
   .opening-copy {
     gap: 6px;
     padding: 20px;
-    animation: openingCopy 1600ms ease forwards;
+    animation: openingCopy 3100ms ease forwards;
   }
 
   .opening-copy strong {
@@ -494,24 +610,64 @@ h1 {
 
   .story-stage {
     width: calc(100% - 24px);
-    min-height: 36svh;
+    min-height: 48svh;
     padding: 18px;
-    animation: storyStage 2200ms cubic-bezier(0.22, 1, 0.36, 1) 2.18s forwards;
+    animation: storyStage 9500ms cubic-bezier(0.22, 1, 0.36, 1) 4.85s forwards;
+  }
+
+  .story-brush {
+    width: 100%;
+  }
+
+  .story-brush-text,
+  .story-brush-final {
+    font-size: 126px;
+  }
+
+  .brush-stroke {
+    stroke-width: 66px;
+    animation-duration: 1850ms;
+    animation-delay: calc(5.28s + var(--delay));
   }
 
   .story-line {
-    font-size: clamp(2.24rem, 12.5vw, 3.75rem);
+    font-size: clamp(2rem, 10.8vw, 3.2rem);
+  }
+
+  .story-tagline {
+    max-width: 28em;
+    font-size: clamp(1rem, 5.2vw, 1.32rem);
+    line-height: 1.55;
+    text-align: center;
+    animation-delay: 11.65s;
+    animation-duration: 1040ms;
+  }
+
+  .story-sublime {
+    font-size: clamp(0.9rem, 4.4vw, 1.08rem);
+    line-height: 1.5;
+    animation-delay: 11.98s;
+    animation-duration: 1040ms;
+  }
+
+  .story-brush-final {
+    animation: none;
+  }
+
+  .story-reveal-rect {
+    animation-duration: 6200ms;
+    animation-delay: 5.28s;
   }
 
   .story-line span {
-    animation-duration: 560ms;
-    animation-delay: calc(2.48s + var(--delay));
+    animation-duration: 850ms;
+    animation-delay: calc(4.42s + var(--delay));
   }
 
   .story-line span::before,
   .story-line span::after {
-    animation-duration: 560ms;
-    animation-delay: calc(2.48s + var(--delay));
+    animation-duration: 850ms;
+    animation-delay: calc(4.42s + var(--delay));
   }
 
   .hero {
@@ -535,7 +691,7 @@ h1 {
     display: grid;
     gap: 12px;
     width: 100%;
-    animation-delay: 4.8s;
+    animation-delay: 14.75s;
   }
 
   .eyebrow {
@@ -548,7 +704,7 @@ h1 {
     margin-bottom: 2px;
     font-size: clamp(2.12rem, 10.6vw, 3.05rem);
     line-height: 0.96;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .lead {
@@ -559,7 +715,7 @@ h1 {
   }
 
   .reservation-card {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-bottom: 0;
     border-radius: 8px;
     background: rgba(18, 13, 10, 0.64);
@@ -640,7 +796,7 @@ h1 {
     font-weight: 900;
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.36);
     transform: translateY(88px);
-    animation: stickyIn 520ms cubic-bezier(0.2, 0.9, 0.2, 1) 5.05s forwards, softPulse 2600ms ease-in-out 5.8s infinite;
+    animation: stickyIn 520ms cubic-bezier(0.2, 0.9, 0.2, 1) 14.95s forwards, softPulse 2600ms ease-in-out 15.6s infinite;
   }
 
   .mobile-sticky-cta svg {
