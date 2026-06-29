@@ -12,10 +12,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700;900&family=Yuji+Syuku&display=swap"
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260626-brushse1" />
+    <link rel="stylesheet" href="./styles.css?v=20260630-cloudsummit1" />
   </head>
   <body>
     <div class="opening" aria-hidden="true">
@@ -28,38 +28,23 @@
           <span class="title-line">します。</span>
         </strong>
       </div>
+      <div class="slash-effect slash-one"></div>
+      <div class="slash-effect slash-two"></div>
+      <div class="slash-effect slash-three"></div>
       <div class="story-stage">
-        <div class="story-brush" aria-label="10年間修行してきた">
-          <svg class="story-brush-svg" viewBox="0 0 1200 320" role="img" aria-hidden="true">
-            <defs>
-              <filter id="inkBleed">
-                <feTurbulence baseFrequency="0.024" numOctaves="2" seed="8" type="fractalNoise" />
-                <feDisplacementMap in="SourceGraphic" scale="1.4" />
-              </filter>
-              <mask id="storyInkMask" maskUnits="userSpaceOnUse">
-                <rect width="1200" height="320" fill="black" />
-                <g class="ink-strokes">
-                  <path class="brush-stroke" style="--delay: 0ms; --dash: 760" d="M74 92 C 190 64, 312 94, 432 76 S 690 74, 814 90 S 1028 104, 1128 78" />
-                  <path class="brush-stroke" style="--delay: 520ms; --dash: 690" d="M118 146 C 234 128, 350 168, 466 144 S 704 122, 816 148 S 1030 170, 1110 144" />
-                  <path class="brush-stroke" style="--delay: 1040ms; --dash: 720" d="M88 204 C 214 188, 330 218, 454 202 S 710 180, 840 206 S 1048 230, 1138 202" />
-                  <path class="brush-stroke" style="--delay: 1640ms; --dash: 620" d="M178 58 C 160 116, 182 174, 152 246" />
-                  <path class="brush-stroke" style="--delay: 2180ms; --dash: 700" d="M314 50 C 348 112, 326 170, 368 258" />
-                  <path class="brush-stroke" style="--delay: 2700ms; --dash: 620" d="M520 48 C 492 110, 520 170, 486 260" />
-                  <path class="brush-stroke" style="--delay: 3200ms; --dash: 700" d="M706 48 C 748 104, 706 174, 762 258" />
-                  <path class="brush-stroke" style="--delay: 3700ms; --dash: 660" d="M958 54 C 910 114, 978 170, 920 260" />
-                </g>
-              </mask>
-              <clipPath id="storyTextClip" clipPathUnits="userSpaceOnUse">
-                <rect class="story-reveal-rect" x="0" y="0" width="1200" height="320" />
-              </clipPath>
-            </defs>
-            <text class="story-brush-text" x="600" y="162" text-anchor="middle" dominant-baseline="middle" mask="url(#storyInkMask)">10年間修行してきた</text>
-            <text class="story-brush-final" x="600" y="162" text-anchor="middle" dominant-baseline="middle" clip-path="url(#storyTextClip)">10年間修行してきた</text>
-          </svg>
-        </div>
-        <div class="story-copy">
-          <p class="story-tagline">10年間修行してきた至高のマッサージ方法をあなたに施術します</p>
-          <p class="story-sublime">あなたを至高の快楽に持ち込む</p>
+        <div class="summit-scene" aria-label="10年間求めてきた、10年間研究してきた至高の施術をあなたに提供">
+          <div class="sunrise"></div>
+          <div class="sun-halo"></div>
+          <div class="mountain mountain-back"></div>
+          <div class="mountain mountain-front"></div>
+          <div class="cloud cloud-left"></div>
+          <div class="cloud cloud-center"></div>
+          <div class="cloud cloud-right"></div>
+          <p class="cloud-message">10年間求めてきた</p>
+          <p class="summit-message">
+            10年間研究してきた<br />
+            至高の施術をあなたに提供
+          </p>
         </div>
       </div>
     </div>
@@ -124,6 +109,6 @@
     </a>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="./script.js?v=20260626-brushse1"></script>
+    <script src="./script.js?v=20260630-cloudsummit1"></script>
   </body>
 </html>

@@ -27,7 +27,112 @@ if (window.lucide) {
     return buffer;
   }
 
-  function playSlashSound() {
+  function connectMaster(start, duration, peak) {
+    const compressor = context.createDynamicsCompressor();
+    compressor.threshold.setValueAtTime(-18, start);
+    compressor.knee.setValueAtTime(18, start);
+    compressor.ratio.setValueAtTime(6, start);
+    compressor.attack.setValueAtTime(0.006, start);
+    compressor.release.setValueAtTime(0.16, start);
+
+    const master = context.createGain();
+    master.gain.setValueAtTime(0.0001, start);
+    master.gain.exponentialRampToValueAtTime(peak, start + 0.04);
+    master.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    compressor.connect(master);
+    master.connect(context.destination);
+
+    return compressor;
+  }
+
+  function scheduleDoorSlide(start) {
+    const master = connectMaster(start, 5.1, 0.42);
+
+    const wood = context.createBufferSource();
+    const woodFilter = context.createBiquadFilter();
+    const woodGain = context.createGain();
+    wood.buffer = createNoiseBuffer(5.1);
+    woodFilter.type = "lowpass";
+    woodFilter.frequency.setValueAtTime(180, start);
+    woodFilter.frequency.linearRampToValueAtTime(520, start + 4.4);
+    woodFilter.Q.setValueAtTime(1.2, start);
+    woodGain.gain.setValueAtTime(0.0001, start);
+    woodGain.gain.exponentialRampToValueAtTime(0.34, start + 0.22);
+    woodGain.gain.exponentialRampToValueAtTime(0.08, start + 4.7);
+    wood.connect(woodFilter);
+    woodFilter.connect(woodGain);
+    woodGain.connect(master);
+    wood.start(start);
+    wood.stop(start + 5.1);
+
+    const rumble = context.createOscillator();
+    const rumbleGain = context.createGain();
+    rumble.type = "triangle";
+    rumble.frequency.setValueAtTime(48, start);
+    rumble.frequency.linearRampToValueAtTime(72, start + 4.6);
+    rumbleGain.gain.setValueAtTime(0.0001, start);
+    rumbleGain.gain.exponentialRampToValueAtTime(0.2, start + 0.32);
+    rumbleGain.gain.exponentialRampToValueAtTime(0.0001, start + 5);
+    rumble.connect(rumbleGain);
+    rumbleGain.connect(master);
+    rumble.start(start);
+    rumble.stop(start + 5.05);
+  }
+
+  function scheduleCut(start, pitch, length) {
+    const master = connectMaster(start, length, 0.5);
+
+    const edge = context.createOscillator();
+    const edgeFilter = context.createBiquadFilter();
+    const edgeGain = context.createGain();
+    edge.type = "sawtooth";
+    edge.frequency.setValueAtTime(pitch * 0.42, start);
+    edge.frequency.exponentialRampToValueAtTime(pitch, start + length * 0.34);
+    edge.frequency.exponentialRampToValueAtTime(pitch * 0.54, start + length);
+    edgeFilter.type = "bandpass";
+    edgeFilter.frequency.setValueAtTime(pitch * 0.62, start);
+    edgeFilter.frequency.exponentialRampToValueAtTime(pitch * 1.42, start + length * 0.4);
+    edgeFilter.Q.setValueAtTime(8, start);
+    edgeGain.gain.setValueAtTime(0.0001, start);
+    edgeGain.gain.exponentialRampToValueAtTime(0.34, start + 0.03);
+    edgeGain.gain.exponentialRampToValueAtTime(0.0001, start + length);
+    edge.connect(edgeFilter);
+    edgeFilter.connect(edgeGain);
+    edgeGain.connect(master);
+    edge.start(start);
+    edge.stop(start + length);
+
+    const chop = context.createBufferSource();
+    const chopFilter = context.createBiquadFilter();
+    const chopGain = context.createGain();
+    chop.buffer = createNoiseBuffer(length);
+    chopFilter.type = "highpass";
+    chopFilter.frequency.setValueAtTime(1400, start);
+    chopFilter.frequency.exponentialRampToValueAtTime(6200, start + length * 0.5);
+    chopGain.gain.setValueAtTime(0.0001, start);
+    chopGain.gain.exponentialRampToValueAtTime(0.42, start + 0.018);
+    chopGain.gain.exponentialRampToValueAtTime(0.0001, start + length * 0.82);
+    chop.connect(chopFilter);
+    chopFilter.connect(chopGain);
+    chopGain.connect(master);
+    chop.start(start);
+    chop.stop(start + length);
+
+    const hit = context.createOscillator();
+    const hitGain = context.createGain();
+    hit.type = "square";
+    hit.frequency.setValueAtTime(96, start + 0.026);
+    hit.frequency.exponentialRampToValueAtTime(54, start + 0.12);
+    hitGain.gain.setValueAtTime(0.0001, start + 0.02);
+    hitGain.gain.exponentialRampToValueAtTime(0.2, start + 0.034);
+    hitGain.gain.exponentialRampToValueAtTime(0.0001, start + 0.18);
+    hit.connect(hitGain);
+    hitGain.connect(master);
+    hit.start(start + 0.02);
+    hit.stop(start + 0.2);
+  }
+
+  function playIntroSounds() {
     if (played) {
       return;
     }
@@ -35,59 +140,15 @@ if (window.lucide) {
     played = true;
 
     const start = context.currentTime + 0.02;
-    const master = context.createGain();
-    master.gain.setValueAtTime(0.0001, start);
-    master.gain.exponentialRampToValueAtTime(0.22, start + 0.035);
-    master.gain.exponentialRampToValueAtTime(0.0001, start + 0.82);
-    master.connect(context.destination);
-
-    const sweep = context.createOscillator();
-    const sweepFilter = context.createBiquadFilter();
-    sweep.type = "sawtooth";
-    sweep.frequency.setValueAtTime(240, start);
-    sweep.frequency.exponentialRampToValueAtTime(2850, start + 0.22);
-    sweep.frequency.exponentialRampToValueAtTime(620, start + 0.78);
-    sweepFilter.type = "bandpass";
-    sweepFilter.frequency.setValueAtTime(980, start);
-    sweepFilter.frequency.exponentialRampToValueAtTime(4200, start + 0.2);
-    sweepFilter.frequency.exponentialRampToValueAtTime(820, start + 0.78);
-    sweepFilter.Q.setValueAtTime(7.5, start);
-    sweep.connect(sweepFilter);
-    sweepFilter.connect(master);
-    sweep.start(start);
-    sweep.stop(start + 0.86);
-
-    const shine = context.createOscillator();
-    const shineGain = context.createGain();
-    shine.type = "sine";
-    shine.frequency.setValueAtTime(1680, start + 0.08);
-    shine.frequency.exponentialRampToValueAtTime(5200, start + 0.34);
-    shineGain.gain.setValueAtTime(0.0001, start + 0.06);
-    shineGain.gain.exponentialRampToValueAtTime(0.16, start + 0.16);
-    shineGain.gain.exponentialRampToValueAtTime(0.0001, start + 0.58);
-    shine.connect(shineGain);
-    shineGain.connect(master);
-    shine.start(start + 0.06);
-    shine.stop(start + 0.62);
-
-    const noise = context.createBufferSource();
-    const noiseFilter = context.createBiquadFilter();
-    const noiseGain = context.createGain();
-    noise.buffer = createNoiseBuffer(0.72);
-    noiseFilter.type = "highpass";
-    noiseFilter.frequency.setValueAtTime(1600, start);
-    noiseFilter.frequency.exponentialRampToValueAtTime(5200, start + 0.26);
-    noiseGain.gain.setValueAtTime(0.0001, start);
-    noiseGain.gain.exponentialRampToValueAtTime(0.13, start + 0.06);
-    noiseGain.gain.exponentialRampToValueAtTime(0.0001, start + 0.7);
-    noise.connect(noiseFilter);
-    noiseFilter.connect(noiseGain);
-    noiseGain.connect(master);
-    noise.start(start);
-    noise.stop(start + 0.72);
+    const compact = window.matchMedia("(max-width: 680px)").matches;
+    const firstCut = compact ? 4.72 : 5.88;
+    scheduleDoorSlide(start);
+    scheduleCut(start + firstCut, 3800, 0.46);
+    scheduleCut(start + firstCut + 0.3, 5200, 0.42);
+    scheduleCut(start + firstCut + 0.6, 4400, 0.5);
   }
 
-  async function triggerSlashSound() {
+  async function triggerIntroSounds() {
     if (played) {
       return;
     }
@@ -99,15 +160,15 @@ if (window.lucide) {
     }
 
     if (context.state === "running") {
-      playSlashSound();
-      window.removeEventListener("pointerdown", triggerSlashSound, true);
-      window.removeEventListener("keydown", triggerSlashSound, true);
-      window.removeEventListener("touchstart", triggerSlashSound, true);
+      playIntroSounds();
+      window.removeEventListener("pointerdown", triggerIntroSounds, true);
+      window.removeEventListener("keydown", triggerIntroSounds, true);
+      window.removeEventListener("touchstart", triggerIntroSounds, true);
     }
   }
 
-  window.setTimeout(triggerSlashSound, 900);
-  window.addEventListener("pointerdown", triggerSlashSound, { once: true, capture: true });
-  window.addEventListener("keydown", triggerSlashSound, { once: true, capture: true });
-  window.addEventListener("touchstart", triggerSlashSound, { once: true, capture: true });
+  window.setTimeout(triggerIntroSounds, 700);
+  window.addEventListener("pointerdown", triggerIntroSounds, { once: true, capture: true });
+  window.addEventListener("keydown", triggerIntroSounds, { once: true, capture: true });
+  window.addEventListener("touchstart", triggerIntroSounds, { once: true, capture: true });
 })();
