@@ -151,11 +151,12 @@ body {
 }
 
 .story-stage {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 2;
   display: block;
-  width: min(1120px, calc(100% - 36px));
-  min-height: 62svh;
+  width: 100%;
+  min-height: 100svh;
   padding: 0;
   color: var(--ink);
   opacity: 0;
@@ -167,160 +168,100 @@ body {
   position: relative;
   display: block;
   width: 100%;
-  min-height: 62svh;
+  min-height: 100svh;
   overflow: hidden;
-  border: 1px solid rgba(85, 103, 92, 0.16);
-  border-radius: 8px;
-  background:
-    radial-gradient(circle at 50% 40%, rgba(255, 224, 134, 0.42), transparent 19%),
-    linear-gradient(180deg, #d9f2f2 0%, #fff4cf 37%, #f4d49c 63%, #9fb28c 100%);
-  box-shadow:
-    0 28px 70px rgba(56, 70, 82, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.48);
+  background: #f8efe0;
 }
 
-.summit-scene::before {
+.summit-art,
+.summit-scene::before,
+.summit-scene::after {
   position: absolute;
   inset: 0;
   content: "";
+}
+
+.summit-art {
+  z-index: 0;
+  background: url("./assets/summit-sunrise-illustration.png") center / cover no-repeat;
+  transform: scale(1.06);
+  animation: summitArtIn 7800ms cubic-bezier(0.16, 0.9, 0.18, 1) 8.25s forwards;
+}
+
+.summit-scene::before {
+  z-index: 1;
   background:
-    repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 18px),
-    radial-gradient(circle at 22% 20%, rgba(255, 255, 255, 0.4), transparent 16%),
-    radial-gradient(circle at 86% 24%, rgba(139, 187, 184, 0.28), transparent 22%);
+    linear-gradient(180deg, rgba(255, 250, 235, 0.48) 0%, rgba(255, 250, 235, 0.1) 38%, rgba(33, 43, 42, 0.34) 100%),
+    radial-gradient(circle at 50% 42%, rgba(255, 230, 149, 0.2), transparent 34%);
   mix-blend-mode: screen;
   opacity: 0.72;
   pointer-events: none;
 }
 
-.sunrise,
-.sun-halo {
-  position: absolute;
-  left: 50%;
-  border-radius: 999px;
-  transform: translateX(-50%) scale(0.75);
-}
-
-.sunrise {
-  bottom: 33%;
-  z-index: 1;
-  width: clamp(120px, 18vw, 220px);
-  aspect-ratio: 1;
-  background:
-    radial-gradient(circle, #fff7b7 0 26%, #f8b24f 48%, rgba(232, 106, 74, 0.22) 70%, transparent 72%);
-  box-shadow:
-    0 0 52px rgba(250, 188, 82, 0.82),
-    0 0 130px rgba(229, 117, 70, 0.45);
-  opacity: 0;
-  animation: sunRise 3600ms cubic-bezier(0.2, 0.9, 0.18, 1) 10.7s forwards;
-}
-
-.sun-halo {
-  bottom: 26%;
-  z-index: 0;
-  width: clamp(280px, 44vw, 560px);
-  aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(255, 237, 172, 0.38), rgba(255, 224, 150, 0.12) 42%, transparent 66%);
-  opacity: 0;
-  animation: haloBloom 3600ms ease 10.88s forwards;
-}
-
-.mountain {
-  position: absolute;
-  right: -6%;
-  bottom: -3%;
-  left: -6%;
+.summit-scene::after {
   z-index: 2;
-  height: 54%;
-  clip-path: polygon(0 100%, 18% 58%, 32% 73%, 50% 22%, 67% 70%, 83% 49%, 100% 100%);
-}
-
-.mountain-back {
-  bottom: 10%;
-  height: 45%;
-  background: linear-gradient(160deg, #6c8792 0%, #425d72 52%, #2d4559 100%);
-  opacity: 0.9;
-  transform: translateY(24px);
-  animation: mountainIn 1600ms cubic-bezier(0.2, 0.9, 0.2, 1) 8.55s forwards;
-}
-
-.mountain-front {
   background:
-    linear-gradient(150deg, rgba(255, 246, 219, 0.46) 0 10%, transparent 10% 100%),
-    linear-gradient(145deg, #425c57 0%, #66845c 52%, #2f463f 100%);
-  transform: translateY(34px);
-  animation: mountainIn 1800ms cubic-bezier(0.2, 0.9, 0.2, 1) 8.8s forwards;
+    linear-gradient(90deg, rgba(34, 45, 46, 0.22), transparent 28%, transparent 72%, rgba(34, 45, 46, 0.18)),
+    linear-gradient(180deg, transparent 58%, rgba(22, 32, 34, 0.34) 100%);
+  pointer-events: none;
 }
 
-.cloud {
+.summit-mist {
   position: absolute;
   z-index: 3;
-  height: 86px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.88);
-  filter: blur(8px);
+  width: 48vw;
+  height: 16vh;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.26) 48%, transparent 74%);
+  filter: blur(14px);
   opacity: 0;
-  box-shadow:
-    48px -18px 0 18px rgba(255, 255, 255, 0.72),
-    108px 6px 0 24px rgba(255, 255, 255, 0.78),
-    164px -10px 0 10px rgba(255, 255, 255, 0.68);
-  animation: cloudDrift 5600ms ease-in-out forwards;
+  animation: mistDrift 5600ms ease-in-out 9.05s forwards;
 }
 
-.cloud-left {
-  top: 31%;
-  left: -4%;
-  width: 250px;
-  animation-delay: 8.82s;
+.summit-mist-left {
+  top: 39%;
+  left: -6vw;
 }
 
-.cloud-center {
-  top: 38%;
-  left: 33%;
-  width: 310px;
-  animation-delay: 9.12s;
-}
-
-.cloud-right {
-  top: 28%;
-  right: 4%;
-  width: 230px;
-  animation-delay: 9.34s;
+.summit-mist-right {
+  top: 42%;
+  right: -5vw;
+  animation-delay: 9.35s;
 }
 
 .cloud-message,
 .summit-message {
   position: absolute;
-  right: clamp(26px, 7vw, 96px);
-  left: clamp(26px, 7vw, 96px);
+  right: clamp(22px, 8vw, 110px);
+  left: clamp(22px, 8vw, 110px);
   z-index: 4;
   margin: 0;
-  text-align: center;
+  color: #fffaf1;
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(1.75rem, 3.35vw, 3.28rem);
+  font-weight: 900;
+  line-height: 1.34;
   letter-spacing: 0;
+  text-align: center;
+  text-shadow:
+    0 4px 18px rgba(22, 31, 34, 0.58),
+    0 1px 0 rgba(28, 32, 30, 0.22);
   text-wrap: balance;
+  opacity: 0;
 }
 
 .cloud-message {
-  top: 24%;
-  color: rgba(52, 67, 82, 0.88);
-  font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", sans-serif;
-  font-size: clamp(1.35rem, 3.2vw, 2.65rem);
-  font-weight: 900;
-  opacity: 0;
+  top: 22%;
+  color: #283848;
+  text-shadow:
+    0 2px 14px rgba(255, 249, 226, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.3);
   transform: translateY(22px);
   animation: cloudTextIn 1600ms cubic-bezier(0.2, 0.9, 0.2, 1) 9.72s forwards;
 }
 
 .summit-message {
-  bottom: 13%;
-  color: #fffaf1;
-  font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", sans-serif;
-  font-size: clamp(1.45rem, 3.9vw, 3.35rem);
-  font-weight: 900;
-  line-height: 1.28;
-  text-shadow:
-    0 4px 20px rgba(36, 44, 45, 0.42),
-    0 1px 0 rgba(29, 38, 38, 0.3);
-  opacity: 0;
+  bottom: 17%;
   transform: translateY(34px) scale(0.98);
   animation: summitTextIn 1800ms cubic-bezier(0.16, 0.9, 0.18, 1) 12.38s forwards;
 }
@@ -558,6 +499,20 @@ h1 {
   }
 }
 
+@keyframes summitArtIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
 @keyframes slashCut {
   0% {
     opacity: 0;
@@ -576,49 +531,18 @@ h1 {
   }
 }
 
-@keyframes sunRise {
+@keyframes mistDrift {
   0% {
     opacity: 0;
-    transform: translate(-50%, 60px) scale(0.72);
-  }
-  36% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1);
-  }
-}
-
-@keyframes haloBloom {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.62);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
-}
-
-@keyframes mountainIn {
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes cloudDrift {
-  0% {
-    opacity: 0;
-    transform: translateX(-18px) translateY(18px) scale(0.92);
+    transform: translateX(-28px) translateY(18px) scale(0.92);
   }
   18%,
   72% {
-    opacity: 0.92;
+    opacity: 0.82;
   }
   100% {
-    opacity: 0.42;
-    transform: translateX(30px) translateY(-8px) scale(1.04);
+    opacity: 0.34;
+    transform: translateX(34px) translateY(-8px) scale(1.05);
   }
 }
 
@@ -708,70 +632,50 @@ h1 {
   }
 
   .story-stage {
-    width: calc(100% - 24px);
-    min-height: 54svh;
+    width: 100%;
+    min-height: 100svh;
     animation: storyStage 8700ms cubic-bezier(0.22, 1, 0.36, 1) 6.42s forwards;
   }
 
   .summit-scene {
-    min-height: 54svh;
+    min-height: 100svh;
   }
 
-  .cloud {
-    height: 58px;
-    filter: blur(7px);
-    box-shadow:
-      34px -12px 0 12px rgba(255, 255, 255, 0.72),
-      76px 4px 0 17px rgba(255, 255, 255, 0.78),
-      116px -7px 0 8px rgba(255, 255, 255, 0.68);
+  .summit-art {
+    background-position: center;
+    transform: scale(1.12);
+    animation-delay: 6.55s;
   }
 
-  .cloud-left {
-    top: 30%;
-    left: -24%;
-    width: 176px;
+  .summit-mist {
+    width: 68vw;
+    height: 12vh;
+    filter: blur(13px);
+    animation-delay: 7.15s;
   }
 
-  .cloud-center {
-    top: 38%;
-    left: 12%;
-    width: 220px;
+  .summit-mist-left {
+    top: 43%;
+    left: -28vw;
   }
 
-  .cloud-right {
-    top: 28%;
-    right: -16%;
-    width: 164px;
-  }
-
-  .sunrise {
-    bottom: 37%;
-    animation-delay: 9.15s;
-  }
-
-  .sun-halo {
-    bottom: 31%;
-    animation-delay: 9.25s;
-  }
-
-  .mountain-back {
-    animation-delay: 6.8s;
-  }
-
-  .mountain-front {
-    animation-delay: 7s;
+  .summit-mist-right {
+    top: 46%;
+    right: -26vw;
+    animation-delay: 7.42s;
   }
 
   .cloud-message {
-    top: 18%;
-    font-size: clamp(1.18rem, 6.2vw, 1.64rem);
+    top: 22%;
+    color: #283848;
+    font-size: clamp(1.28rem, 6.4vw, 2rem);
     animation-delay: 7.95s;
   }
 
   .summit-message {
-    bottom: 15%;
-    font-size: clamp(1.04rem, 5.35vw, 1.54rem);
-    line-height: 1.3;
+    bottom: 19%;
+    font-size: clamp(1.28rem, 6.4vw, 2rem);
+    line-height: 1.36;
     animation-delay: 10.15s;
   }
 
