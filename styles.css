@@ -3,14 +3,14 @@
   --paper: #fff8ea;
   --surface: rgba(255, 248, 234, 0.92);
   --charcoal: #2a211b;
-  --brass: #c98f34;
+  --brass: #d2a15a;
   --red: #a94735;
   --sky: #8fcad5;
   --sage: #7f9d72;
   --peach: #e7a76e;
   --indigo: #394f69;
-  --line: rgba(255, 248, 234, 0.28);
-  --shadow: 0 26px 80px rgba(43, 31, 22, 0.28);
+  --line: rgba(255, 248, 234, 0.22);
+  --shadow: 0 18px 54px rgba(30, 22, 17, 0.26);
 }
 
 * {
@@ -282,6 +282,7 @@ h1 {
 
 .hero {
   position: relative;
+  isolation: isolate;
   display: grid;
   min-height: 100svh;
   overflow: hidden;
@@ -296,22 +297,36 @@ h1 {
 }
 
 .hero-bg {
-  background: url("./assets/hero-basecamp-care.png") center / cover no-repeat;
-  transform: scale(1.015);
+  background: url("./assets/hero-basecamp-care.png") 58% center / cover no-repeat;
+  filter: saturate(0.78) contrast(0.92) brightness(0.82) blur(1.1px);
+  opacity: 0.72;
+  transform: scale(1.045);
 }
 
 .hero-shade {
   background:
-    linear-gradient(90deg, rgba(44, 32, 25, 0.9) 0%, rgba(74, 57, 43, 0.68) 42%, rgba(97, 118, 99, 0.18) 100%),
-    linear-gradient(0deg, rgba(51, 39, 29, 0.68), rgba(255, 214, 150, 0.08)),
-    radial-gradient(circle at 18% 18%, rgba(230, 167, 105, 0.28), transparent 28%),
-    radial-gradient(circle at 82% 16%, rgba(127, 157, 114, 0.24), transparent 26%);
+    linear-gradient(90deg, rgba(35, 27, 22, 0.92) 0%, rgba(43, 34, 27, 0.78) 44%, rgba(35, 31, 26, 0.52) 100%),
+    linear-gradient(0deg, rgba(34, 25, 20, 0.62), rgba(210, 172, 115, 0.1)),
+    radial-gradient(circle at 12% 20%, rgba(207, 153, 82, 0.2), transparent 30%),
+    radial-gradient(circle at 86% 20%, rgba(127, 157, 114, 0.16), transparent 30%);
+}
+
+.hero::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 234, 0.035), transparent 32%, rgba(0, 0, 0, 0.04)),
+    radial-gradient(circle at 18% 78%, rgba(210, 161, 90, 0.1), transparent 34%);
+  mix-blend-mode: soft-light;
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
-  width: min(720px, 100%);
+  width: min(660px, 100%);
   animation: riseIn 720ms cubic-bezier(0.2, 0.9, 0.2, 1) 18.7s both;
 }
 
@@ -319,8 +334,8 @@ h1 {
 .label,
 .dm-title {
   color: var(--brass);
-  font-size: 0.76rem;
-  font-weight: 900;
+  font-size: 0.72rem;
+  font-weight: 800;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -332,28 +347,28 @@ h1 {
 h1 {
   margin-bottom: 22px;
   font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", sans-serif;
-  font-size: clamp(3.2rem, 9vw, 7.1rem);
+  font-size: clamp(3rem, 8.2vw, 6.4rem);
   font-weight: 900;
   line-height: 0.98;
-  text-shadow: 0 5px 28px rgba(29, 22, 17, 0.38);
+  text-shadow: 0 4px 22px rgba(29, 22, 17, 0.34);
 }
 
 .lead {
-  width: min(620px, 100%);
+  width: min(580px, 100%);
   margin-bottom: 28px;
-  color: rgba(255, 250, 241, 0.84);
+  color: rgba(255, 250, 241, 0.88);
   font-size: clamp(1rem, 2vw, 1.16rem);
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .reservation-card,
 .dm-box {
   width: min(620px, 100%);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 248, 234, 0.2);
   border-radius: 8px;
-  background: rgba(43, 31, 22, 0.62);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(16px);
+  background: rgba(37, 29, 23, 0.74);
+  box-shadow: 0 16px 44px rgba(24, 18, 14, 0.24);
+  backdrop-filter: blur(5px);
 }
 
 .reservation-card {
@@ -389,8 +404,8 @@ h1 {
 
 .dm-box p {
   margin-bottom: 6px;
-  color: rgba(255, 250, 241, 0.86);
-  font-weight: 800;
+  color: rgba(255, 250, 241, 0.88);
+  font-weight: 700;
 }
 
 .dm-title {
@@ -400,7 +415,7 @@ h1 {
 .dm-note {
   margin-top: 12px !important;
   margin-bottom: 0 !important;
-  color: rgba(255, 250, 241, 0.68) !important;
+  color: rgba(255, 250, 241, 0.74) !important;
   font-size: 0.9rem;
 }
 
@@ -420,13 +435,13 @@ h1 {
   border: 1px solid var(--brass);
   border-radius: 8px;
   color: #251a11;
-  background: linear-gradient(135deg, #f3c35f 0%, #dd9a4c 58%, #8fb36c 100%);
+  background: linear-gradient(135deg, #e8b85f 0%, #c98f34 100%);
   font-size: 0.96rem;
   font-weight: 900;
   line-height: 1.2;
   box-shadow: 0 0 0 rgba(199, 154, 75, 0.35);
   transition: transform 160ms ease, filter 160ms ease;
-  animation: softPulse 2600ms ease-in-out infinite;
+  animation: softPulse 3200ms ease-in-out 19.4s 2;
 }
 
 .button:hover {
@@ -686,14 +701,16 @@ h1 {
   }
 
   .hero-bg {
-    background-position: 58% center;
-    transform: scale(1.04);
+    background-position: 62% center;
+    filter: saturate(0.74) contrast(0.9) brightness(0.76) blur(1.2px);
+    opacity: 0.58;
+    transform: scale(1.08);
   }
 
   .hero-shade {
     background:
-      linear-gradient(180deg, rgba(55, 42, 30, 0.22) 0%, rgba(54, 41, 30, 0.56) 38%, rgba(43, 31, 22, 0.94) 100%),
-      linear-gradient(90deg, rgba(66, 47, 34, 0.72), rgba(119, 147, 102, 0.18));
+      linear-gradient(180deg, rgba(55, 42, 30, 0.2) 0%, rgba(48, 38, 31, 0.62) 40%, rgba(34, 25, 20, 0.96) 100%),
+      linear-gradient(90deg, rgba(57, 42, 32, 0.74), rgba(119, 147, 102, 0.12));
   }
 
   .hero-content {
@@ -727,7 +744,7 @@ h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-bottom: 0;
     border-radius: 8px;
-    background: rgba(43, 31, 22, 0.66);
+    background: rgba(37, 29, 23, 0.78);
   }
 
   .reservation-card > div {
@@ -755,7 +772,7 @@ h1 {
   .dm-box {
     margin-bottom: 0;
     padding: 14px;
-    background: rgba(43, 31, 22, 0.72);
+    background: rgba(37, 29, 23, 0.82);
   }
 
   .dm-box p {
@@ -768,9 +785,9 @@ h1 {
     display: inline-block;
     max-width: 100%;
     padding: 8px 10px;
-    border: 1px solid rgba(255, 250, 241, 0.14);
+    border: 1px solid rgba(255, 250, 241, 0.12);
     border-radius: 8px;
-    background: rgba(255, 250, 241, 0.08);
+    background: rgba(255, 250, 241, 0.06);
   }
 
   .dm-note {
@@ -801,11 +818,11 @@ h1 {
     border: 1px solid rgba(255, 250, 241, 0.16);
     border-radius: 8px;
     color: #1b120b;
-    background: linear-gradient(135deg, #f3c35f 0%, #dd9a4c 58%, #8fb36c 100%);
+    background: linear-gradient(135deg, #e8b85f 0%, #c98f34 100%);
     font-weight: 900;
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.36);
     transform: translateY(88px);
-    animation: stickyIn 520ms cubic-bezier(0.2, 0.9, 0.2, 1) 15.88s forwards, softPulse 2600ms ease-in-out 16.55s infinite;
+    animation: stickyIn 520ms cubic-bezier(0.2, 0.9, 0.2, 1) 15.88s forwards, softPulse 3200ms ease-in-out 16.55s 2;
   }
 
   .mobile-sticky-cta svg {
